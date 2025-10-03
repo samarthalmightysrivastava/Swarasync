@@ -69,24 +69,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-            margin-bottom: 30px;
+            padding: 16px 0;
+            margin-bottom: 20px;
         }
 
         .back-btn {
-            color: var(--sushumna-primary);
+            color: var(--text-medium);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
+            font-weight: 500;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             transition: var(--transition);
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8);
         }
 
         .back-btn:hover {
-            transform: translateX(-4px);
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(-2px);
         }
 
         .path-info {
@@ -95,15 +98,18 @@
 
         .path-title {
             font-family: 'Newsreader', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.3rem;
+            font-weight: 600;
             color: var(--sushumna-primary);
+            margin-bottom: 4px;
         }
 
         .path-subtitle {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-medium);
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         /* Session Controls */
@@ -588,14 +594,14 @@
                 }
                 
                 // Show restart message and restart the SAME phase
-                document.getElementById('breathCounter').textContent = 'Hold to continue - restarting phase...';
+                document.getElementById('breathCounter').textContent = 'Restarting phase...';
                 
                 setTimeout(() => {
                     if (breathingState.isActive) {
                         // Restart the exact same phase, don't advance
                         nextPhase();
                     }
-                }, 1500);
+                }, 1000);
             }
         }
         
@@ -693,9 +699,9 @@
             const updateCounter = () => {
                 if (!breathingState.isActive) return;
                 
-                // Update counter text
+                // Update counter text with seconds
                 if (breathingState.currentTimer > 0) {
-                    document.getElementById('breathCounter').textContent = `${breathingState.currentTimer} cycles left`;
+                    document.getElementById('breathCounter').textContent = `${breathingState.currentTimer} seconds`;
                 } else {
                     document.getElementById('breathCounter').textContent = '';
                 }
