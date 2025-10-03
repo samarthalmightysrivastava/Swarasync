@@ -48,7 +48,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
-            background: linear-gradient(135deg, #4A90E2 0%, #5BA3F5 50%, #6BB6FF 100%);
+            background: linear-gradient(135deg, #F0F8FF 0%, #E8F5F3 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -174,63 +174,63 @@
             width: 280px;
             height: 280px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 3px solid rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.95);
+            border: 4px solid rgba(139, 92, 246, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             box-shadow: 
-                0 0 40px rgba(255, 255, 255, 0.3),
-                inset 0 0 30px rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
+                0 0 30px rgba(139, 92, 246, 0.2),
+                0 0 60px rgba(139, 92, 246, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
             transition: var(--transition);
         }
 
         .breath-circle.active {
-            border-color: rgba(255, 255, 255, 0.8);
+            border-color: var(--sushumna-primary);
             box-shadow: 
-                0 0 50px rgba(255, 255, 255, 0.4),
-                inset 0 0 30px rgba(255, 255, 255, 0.2);
+                0 0 40px rgba(139, 92, 246, 0.4),
+                0 0 80px rgba(139, 92, 246, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.8);
         }
 
         .breath-content {
             text-align: center;
-            color: white;
+            color: var(--text-dark);
             z-index: 10;
-            width: 100%;
-            height: 100%;
+            width: 200px;
+            height: 200px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            padding: 40px;
+            position: relative;
         }
 
         .breath-text {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 12px;
+            line-height: 1.1;
+            margin-bottom: 8px;
             font-family: 'Inter', sans-serif;
+            max-width: 160px;
+            word-wrap: break-word;
             text-align: center;
-            white-space: nowrap;
         }
 
         .breath-icon {
-            font-size: 3.5rem;
-            margin: 8px 0;
+            font-size: 2.5rem;
+            margin: 6px 0;
             display: block;
         }
 
         .breath-counter {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 12px;
+            color: var(--text-medium);
+            margin-top: 8px;
             text-align: center;
         }
 
@@ -395,19 +395,22 @@
             }
 
             .breath-content {
-                padding: 30px;
+                width: 160px;
+                height: 160px;
             }
 
             .breath-text {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
+                max-width: 120px;
             }
 
             .breath-icon {
-                font-size: 3rem;
+                font-size: 2rem;
             }
 
             .breath-counter {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
+                max-width: 120px;
             }
 
             .session-selector {
@@ -428,15 +431,18 @@
             }
 
             .breath-content {
-                padding: 25px;
+                width: 140px;
+                height: 140px;
             }
 
             .breath-text {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+                max-width: 100px;
             }
 
             .breath-counter {
-                font-size: 0.8rem;
+                font-size: 0.75rem;
+                max-width: 100px;
             }
         }
     </style>
