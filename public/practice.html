@@ -102,6 +102,12 @@
             font-weight: 600;
             color: var(--sushumna-primary);
             margin-bottom: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .path-title.loaded {
+            opacity: 1;
         }
 
         .path-subtitle {
@@ -135,6 +141,12 @@
             color: var(--sushumna-primary);
             text-align: center;
             margin-bottom: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .pattern-title.loaded {
+            opacity: 1;
         }
 
         .pattern-timing {
@@ -551,14 +563,14 @@
             <a href="/" class="back-btn">← Home</a>
             
             <div class="path-info">
-                <div class="path-title" id="pathTitle">Suṣumnā</div>
-                <div class="path-subtitle" id="pathSubtitle">Both • Balanced</div>
+                <div class="path-title" id="pathTitle">Loading...</div>
+                <div class="path-subtitle" id="pathSubtitle">Initializing...</div>
             </div>
         </div>
 
         <!-- Breathing Pattern Info -->
         <div class="pattern-info">
-            <div class="pattern-title" id="patternTitle">Suṣumnā Balanced Practice</div>
+            <div class="pattern-title" id="patternTitle">Loading Practice...</div>
             <div class="pattern-timing">
                 <div class="timing-card inhale-card">
                     <div class="timing-label">INHALE</div>
@@ -899,6 +911,7 @@
         function updatePathUI(path) {
             const pathTitle = document.getElementById('pathTitle');
             const pathSubtitle = document.getElementById('pathSubtitle');
+            const patternTitle = document.getElementById('patternTitle');
             const breathCircle = document.getElementById('breathCircle');
             
             // Update breathing pattern based on nadi
@@ -928,6 +941,10 @@
                     breathCircle.style.borderColor = 'rgba(139, 92, 246, 0.4)';
                     document.documentElement.style.setProperty('--current-primary', '#8B5CF6');
             }
+            
+            // Show content after updating
+            pathTitle.classList.add('loaded');
+            patternTitle.classList.add('loaded');
         }
         
         function updatePatternInfo(path) {
