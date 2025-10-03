@@ -200,27 +200,39 @@
             text-align: center;
             color: var(--text-dark);
             z-index: 10;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
         .breath-text {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 12px;
+            line-height: 1.1;
+            margin-bottom: 8px;
             font-family: 'Inter', sans-serif;
+            max-width: 160px;
+            word-wrap: break-word;
+            text-align: center;
         }
 
         .breath-icon {
-            font-size: 3rem;
-            margin: 8px 0;
+            font-size: 2.5rem;
+            margin: 6px 0;
             display: block;
         }
 
         .breath-counter {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
             color: var(--text-medium);
-            margin-top: 8px;
+            margin-top: 6px;
+            max-width: 160px;
+            text-align: center;
         }
 
         .breath-progress {
@@ -383,12 +395,23 @@
                 height: 240px;
             }
 
+            .breath-content {
+                width: 160px;
+                height: 160px;
+            }
+
             .breath-text {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
+                max-width: 120px;
             }
 
             .breath-icon {
-                font-size: 2.5rem;
+                font-size: 2rem;
+            }
+
+            .breath-counter {
+                font-size: 0.8rem;
+                max-width: 120px;
             }
 
             .session-selector {
@@ -398,6 +421,29 @@
 
             .session-btn {
                 width: 120px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 360px) {
+            .breath-circle {
+                width: 220px;
+                height: 220px;
+            }
+
+            .breath-content {
+                width: 140px;
+                height: 140px;
+            }
+
+            .breath-text {
+                font-size: 1.1rem;
+                max-width: 100px;
+            }
+
+            .breath-counter {
+                font-size: 0.75rem;
+                max-width: 100px;
             }
         }
     </style>
@@ -426,10 +472,10 @@
 
         <!-- Practice Area -->
         <div class="practice-area">
-            <div class="breathing-container" id="breathingContainer" onclick="startBreathing()">
+            <div class="breathing-container" id="breathingContainer">
                 <div class="breath-circle" id="breathCircle">
                     <div class="breath-content">
-                        <div class="breath-text" id="breathText">Tap to<br>start</div>
+                        <div class="breath-text" id="breathText">Tap to Start</div>
                         <div class="breath-icon" id="breathIcon">🧘</div>
                         <div class="breath-counter" id="breathCounter"></div>
                     </div>
@@ -472,7 +518,7 @@
     </div>
 
     <script>
-        // Breathing State
+        // Breathing State with Path Support
         let breathingState = {
             isActive: false,
             phase: 'ready',
@@ -483,8 +529,93 @@
             exhaleTime: 8,
             currentTimer: 0,
             phaseTimer: null,
-            intervalTimer: null
+            intervalTimer: null,
+            isHolding: false,
+            holdStartTime: 0,
+            currentPath: 'sushumna'
         };
+
+        // Touch/Mouse Event Handlers for Hold Functionality
+        let touchStartTime = 0;
+        let isPressed = false;
+        
+        function setupTouchEvents() {
+            const container = document.getElementById('breathingContainer');
+            
+            // Mouse events
+            container.addEventListener('mousedown', handlePressStart);
+            container.addEventListener('mouseup', handlePressEnd);
+            container.addEventListener('mouseleave', handlePressEnd);
+            
+            // Touch events
+            container.addEventListener('touchstart', handlePressStart, { passive: false });
+            container.addEventListener('touchend', handlePressEnd, { passive: false });
+            container.addEventListener('touchcancel', handlePressEnd, { passive: false });
+        }
+        
+        function handlePressStart(e) {
+            e.preventDefault();
+            
+            if (!breathingState.isActive) {
+                startBreathing();
+                return;
+            }
+            
+            isPressed = true;
+            touchStartTime = Date.now();
+            breathingState.isHolding = true;
+            breathingState.holdStartTime = Date.now();
+            
+            // Visual feedback for hold
+            document.getElementById('breathCircle').style.transform = 'scale(0.95)';
+        }
+        
+        function handlePressEnd(e) {
+            e.preventDefault();
+            
+            if (!isPressed) return;
+            
+            isPressed = false;
+            breathingState.isHolding = false;
+            
+            // Remove visual feedback
+            document.getElementById('breathCircle').style.transform = 'scale(1)';
+            
+            // If released before cycle complete, restart current phase
+            if (breathingState.isActive && breathingState.phase !== 'ready') {
+                const holdDuration = Date.now() - breathingState.holdStartTime;
+                const requiredDuration = getCurrentPhaseDuration() * 1000;
+                
+                if (holdDuration < requiredDuration) {
+                    // Restart current phase
+                    restartCurrentPhase();
+                }
+            }
+        }
+        
+        function getCurrentPhaseDuration() {
+            switch(breathingState.phase) {
+                case 'inhale': return breathingState.inhaleTime;
+                case 'hold': return breathingState.holdTime;
+                case 'exhale': return breathingState.exhaleTime;
+                default: return 0;
+            }
+        }
+        
+        function restartCurrentPhase() {
+            if (breathingState.intervalTimer) {
+                clearInterval(breathingState.intervalTimer);
+            }
+            
+            // Show restart message
+            document.getElementById('breathCounter').textContent = 'Hold to complete - restarting...';
+            
+            setTimeout(() => {
+                if (breathingState.isActive) {
+                    nextPhase();
+                }
+            }, 1000);
+        }
 
         // Start breathing function
         function startBreathing() {
@@ -500,7 +631,7 @@
             document.getElementById('breathCircle').classList.add('active');
             
             // Ready phase
-            document.getElementById('breathText').innerHTML = 'Ready to<br>breathe';
+            document.getElementById('breathText').textContent = 'Ready to breathe';
             document.getElementById('breathIcon').textContent = '🫁';
             document.getElementById('breathCounter').textContent = 'Get comfortable';
             
@@ -522,33 +653,33 @@
             
             switch(breathingState.phase) {
                 case 'inhale':
-                    document.getElementById('breathText').innerHTML = 'inhale';
+                    document.getElementById('breathText').textContent = 'Breathe In';
                     document.getElementById('breathIcon').textContent = '💨';
                     progressEl.classList.add('inhale');
                     
-                    startPhaseTimer(breathingState.inhaleTime, () => {
+                    startHoldPhaseTimer(breathingState.inhaleTime, () => {
                         breathingState.phase = 'hold';
                         nextPhase();
                     });
                     break;
                     
                 case 'hold':
-                    document.getElementById('breathText').innerHTML = 'hold';
+                    document.getElementById('breathText').textContent = 'Hold';
                     document.getElementById('breathIcon').textContent = '⏸️';
                     progressEl.classList.add('hold');
                     
-                    startPhaseTimer(breathingState.holdTime, () => {
+                    startHoldPhaseTimer(breathingState.holdTime, () => {
                         breathingState.phase = 'exhale';
                         nextPhase();
                     });
                     break;
                     
                 case 'exhale':
-                    document.getElementById('breathText').innerHTML = 'exhale';
+                    document.getElementById('breathText').textContent = 'Breathe Out';
                     document.getElementById('breathIcon').textContent = '🌬️';
                     progressEl.classList.add('exhale');
                     
-                    startPhaseTimer(breathingState.exhaleTime, () => {
+                    startHoldPhaseTimer(breathingState.exhaleTime, () => {
                         breathingState.round++;
                         
                         if (breathingState.round > breathingState.maxRounds) {
@@ -563,19 +694,32 @@
             }
         }
 
-        function startPhaseTimer(duration, callback) {
+        function startHoldPhaseTimer(duration, callback) {
             breathingState.currentTimer = duration;
             
             const updateCounter = () => {
                 if (!breathingState.isActive) return;
                 
-                document.getElementById('breathCounter').textContent = `${breathingState.currentTimer} cycles left`;
+                // Update counter text
+                if (breathingState.currentTimer > 0) {
+                    document.getElementById('breathCounter').textContent = `Hold for ${breathingState.currentTimer}s`;
+                } else {
+                    document.getElementById('breathCounter').textContent = 'Continue...';
+                }
                 
+                // Check if phase should complete
                 if (breathingState.currentTimer <= 0) {
                     callback();
-                } else {
+                    return;
+                }
+                
+                // Only continue if user is still holding (for touch devices)
+                if (breathingState.isHolding || !('ontouchstart' in window)) {
                     breathingState.currentTimer--;
-                    setTimeout(updateCounter, 1000);
+                    breathingState.intervalTimer = setTimeout(updateCounter, 1000);
+                } else {
+                    // User released, pause the timer
+                    document.getElementById('breathCounter').textContent = 'Tap and hold to continue';
                 }
             };
             
@@ -585,14 +729,17 @@
         function stopBreathing() {
             breathingState.isActive = false;
             breathingState.phase = 'ready';
+            breathingState.isHolding = false;
+            isPressed = false;
             
             if (breathingState.intervalTimer) {
-                clearInterval(breathingState.intervalTimer);
+                clearTimeout(breathingState.intervalTimer);
             }
             
             document.getElementById('breathCircle').classList.remove('active');
+            document.getElementById('breathCircle').style.transform = 'scale(1)';
             document.getElementById('breathProgress').className = 'breath-progress';
-            document.getElementById('breathText').innerHTML = 'Tap to<br>start';
+            document.getElementById('breathText').textContent = 'Tap to Start';
             document.getElementById('breathIcon').textContent = '🧘';
             document.getElementById('breathCounter').textContent = '';
             
@@ -633,7 +780,43 @@
             updateUI();
         }
 
+        // Path Detection and Colors
+        function detectPath() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const path = urlParams.get('path') || 'sushumna';
+            breathingState.currentPath = path;
+            updatePathUI(path);
+        }
+        
+        function updatePathUI(path) {
+            const pathTitle = document.getElementById('pathTitle');
+            const pathSubtitle = document.getElementById('pathSubtitle');
+            const breathCircle = document.getElementById('breathCircle');
+            
+            switch(path) {
+                case 'ida':
+                    pathTitle.textContent = 'Idā Nadi';
+                    pathSubtitle.textContent = 'Left • Cooling';
+                    breathCircle.style.borderColor = 'rgba(59, 181, 173, 0.4)';
+                    document.documentElement.style.setProperty('--current-primary', '#3BB5AD');
+                    break;
+                case 'pingala':
+                    pathTitle.textContent = 'Piṅgalā Nadi';
+                    pathSubtitle.textContent = 'Right • Heating';
+                    breathCircle.style.borderColor = 'rgba(246, 164, 58, 0.4)';
+                    document.documentElement.style.setProperty('--current-primary', '#F6A43A');
+                    break;
+                default:
+                    pathTitle.textContent = 'Suṣumnā Nadi';
+                    pathSubtitle.textContent = 'Both • Balanced';
+                    breathCircle.style.borderColor = 'rgba(139, 92, 246, 0.4)';
+                    document.documentElement.style.setProperty('--current-primary', '#8B5CF6');
+            }
+        }
+
         // Initialize
+        setupTouchEvents();
+        detectPath();
         updateUI();
     </script>
 </body>
