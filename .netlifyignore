@@ -1,0 +1,13 @@
+# Ignore non-essential files for deployment
+node_modules/
+src/
+data/
+.git/
+.env*
+*.md
+ecosystem.config.cjs
+simple-server.js
+test-*.js
+debug-*.js
+package-lock.json
+.gitignore

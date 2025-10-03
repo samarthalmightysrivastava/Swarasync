@@ -1,66 +1,47 @@
+# Netlify configuration for Swarasync PWA (Static Site)
 [build]
-  # Build directory
   publish = "public"
-  
-  # Build command (not needed for static files)
   command = ""
 
 [build.environment]
-  # Node.js version
-  NODE_VERSION = "18"
+  # Disable Next.js plugin
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
+# Security and performance headers
 [[headers]]
-  # Apply headers to all files
   for = "/*"
   [headers.values]
-    # Security headers
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    
-    # PWA headers for better caching
-    Cache-Control = "public, max-age=31536000, immutable"
 
+# HTML files - no cache for dynamic content
 [[headers]]
-  # HTML files should not be cached heavily
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# Service Worker - no cache
 [[headers]]
-  # Service Worker should not be cached
   for = "/sw.js"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# PWA Manifest - light cache
 [[headers]]
-  # Manifest should not be cached heavily
-  for = "/manifest.json"
+  for = "/manifest.json"  
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
-# Redirect rules for SPA behavior
-[[redirects]]
-  from = "/practice"
-  to = "/practice.html"
-  status = 200
-
-[[redirects]]
-  from = "/guide"  
-  to = "/guide.html"
-  status = 200
-
-# Handle any other paths to index for SPA behavior
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  conditions = {Role = ["admin"], Country = ["!US"]}
-
-# PWA headers
+# Static assets - long cache
 [[headers]]
-  for = "*.webp"
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.js"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
@@ -73,3 +54,25 @@
   for = "*.png"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# SPA-style redirects for clean URLs
+[[redirects]]
+  from = "/practice"
+  to = "/practice.html"
+  status = 200
+
+[[redirects]]
+  from = "/guide"  
+  to = "/guide.html"
+  status = 200
+
+# 404 fallback to home
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
