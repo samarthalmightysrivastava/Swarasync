@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0E2A36">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Swarasync - Practice</title>
     
-    <link rel="manifest" href="/manifest.json">
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Primary Colors */
             --primary-teal: #0E2A36;
             --primary-teal-light: #1A3E4A;
             --accent-blue: #3BB5AD;
@@ -26,29 +23,13 @@
             --text-medium: #4A5568;
             --text-light: #718096;
             
-            /* Nadi Theme Colors */
+            --sushumna-primary: #8B5CF6;
+            --sushumna-secondary: #A78BFA;
             --ida-primary: #3BB5AD;
-            --ida-secondary: #0E2A36;
-            --ida-light: #E9F5F3;
-            --ida-bg: #F0FDFA;
-            
+            --ida-secondary: #5FC4BC;
             --pingala-primary: #F6A43A;
-            --pingala-secondary: #DC7633;
-            --pingala-light: #FFF3E1;
-            --pingala-bg: #FFFBF5;
+            --pingala-secondary: #FCD34D;
             
-            --sushumna-primary: #A78BFA;
-            --sushumna-secondary: #7C3AED;
-            --sushumna-light: #EDE9FE;
-            --sushumna-bg: #FAFAFA;
-            
-            /* Current theme (default to Sushumna) */
-            --current-primary: var(--sushumna-primary);
-            --current-secondary: var(--sushumna-secondary);
-            --current-light: var(--sushumna-light);
-            --current-bg: var(--sushumna-bg);
-            
-            /* Design tokens */
             --border-radius: 16px;
             --border-radius-lg: 24px;
             --shadow-soft: 0 4px 20px rgba(14, 42, 54, 0.1);
@@ -65,57 +46,22 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, var(--current-bg) 0%, var(--current-light) 100%);
+            line-height: 1.6;
             color: var(--text-dark);
-            min-height: 100vh;
-            transition: var(--transition);
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Moving backgrounds */
-        .bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            z-index: -2;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        .bg-video.active {
-            opacity: 0.3;
-            animation: backgroundFlow 20s ease-in-out infinite;
-        }
-        
-        @keyframes backgroundFlow {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            33% { transform: scale(1.02) rotate(0.3deg); }
-            66% { transform: scale(0.98) rotate(-0.3deg); }
-        }
-
-        .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.85);
-            z-index: -1;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            background: linear-gradient(135deg, #F0F8FF 0%, #E8F5F3 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Header */
@@ -124,245 +70,53 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 0;
-            position: relative;
-            z-index: 100;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            margin-bottom: 30px;
         }
 
         .back-btn {
+            color: var(--sushumna-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            color: var(--text-dark);
-            cursor: pointer;
             transition: var(--transition);
-            box-shadow: var(--shadow-soft);
-            text-decoration: none;
         }
 
         .back-btn:hover {
-            background: white;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-medium);
+            transform: translateX(-4px);
         }
 
         .path-info {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 16px 24px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-soft);
-            backdrop-filter: blur(20px);
             text-align: center;
         }
 
         .path-title {
             font-family: 'Newsreader', serif;
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--current-primary);
-            margin-bottom: 4px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--sushumna-primary);
         }
 
         .path-subtitle {
             font-size: 0.85rem;
             color: var(--text-medium);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Path Selector */
-        .path-selector {
-            display: flex;
-            gap: 12px;
-        }
-
-        .path-chip {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: var(--transition);
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.6;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .path-chip.active {
-            opacity: 1;
-            transform: scale(1.1);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .path-chip.ida {
-            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/314809d2-97cd-417f-a659-bdc9c765b332');
-            border-color: var(--ida-primary);
-        }
-
-        .path-chip.pingala {
-            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/e9357537-d6d8-4dc5-9ab9-f15ce6555baa');
-            border-color: var(--pingala-primary);
-        }
-
-        .path-chip.sushumna {
-            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/89f564e7-b188-439b-9570-5f8775a4817c');
-            border-color: var(--sushumna-primary);
-        }
-
-        /* Timing Info Section */
-        .timing-info {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: var(--border-radius);
-            padding: 24px;
-            margin: 20px 0;
-            box-shadow: var(--shadow-soft);
-            backdrop-filter: blur(10px);
-        }
-
-        .timing-title {
-            font-family: 'Newsreader', serif;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--current-primary);
-            margin-bottom: 16px;
-            text-align: center;
-        }
-
-        .timing-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 16px;
-        }
-
-        .timing-item {
-            text-align: center;
-            padding: 16px;
-            background: var(--current-light);
-            border-radius: var(--border-radius);
-        }
-
-        .timing-phase {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-medium);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 8px;
-        }
-
-        .timing-duration {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--current-primary);
-            margin-bottom: 4px;
-        }
-
-        .timing-instruction {
-            font-size: 0.8rem;
-            color: var(--text-medium);
-        }
-
-        .timing-effect {
-            background: linear-gradient(135deg, var(--current-light) 0%, rgba(255, 255, 255, 0.8) 100%);
-            padding: 16px;
-            border-radius: var(--border-radius);
-            border-left: 4px solid var(--current-primary);
-        }
-
-        .effect-title {
-            font-weight: 600;
-            color: var(--current-secondary);
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        .effect-description {
-            font-size: 0.85rem;
-            line-height: 1.5;
-            color: var(--text-medium);
-        }
-
-        /* Main Practice Area */
-        .practice-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 0;
-            gap: 32px;
-        }
-
-        .breathing-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #breathingCanvas {
-            border-radius: 50%;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow-strong);
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        #breathingCanvas:hover {
-            transform: scale(1.02);
-        }
-
-        #breathingCanvas:active {
-            transform: scale(0.98);
-        }
-
-        .breath-instruction {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .instruction-text {
-            font-size: clamp(1.2rem, 4vw, 2rem);
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-        }
-
-        .instruction-timer {
-            font-size: clamp(2rem, 8vw, 4rem);
-            font-weight: 900;
-            color: var(--current-primary);
+            font-weight: 500;
         }
 
         /* Session Controls */
         .session-controls {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: var(--shadow-soft);
-            backdrop-filter: blur(10px);
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .session-title {
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            color: var(--text-medium);
-            margin-bottom: 12px;
-            text-align: center;
+            color: var(--text-dark);
+            margin-bottom: 20px;
         }
 
         .session-selector {
@@ -372,219 +126,194 @@
         }
 
         .session-btn {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid transparent;
-            border-radius: var(--border-radius);
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            color: var(--sushumna-primary);
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
-            color: var(--text-dark);
-            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .session-btn:hover {
+            background: rgba(139, 92, 246, 0.15);
+            transform: translateY(-2px);
         }
 
         .session-btn.active {
-            background: var(--current-primary);
+            background: var(--sushumna-primary);
             color: white;
-            border-color: var(--current-secondary);
+            border-color: var(--sushumna-secondary);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
         }
 
-        .session-btn:hover:not(.active) {
-            background: var(--current-light);
-            transform: translateY(-1px);
+        /* Practice Area */
+        .practice-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .breathing-container {
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .breathing-container:hover {
+            transform: scale(1.02);
+        }
+
+        .breath-circle {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: 4px solid rgba(139, 92, 246, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 
+                0 0 30px rgba(139, 92, 246, 0.2),
+                0 0 60px rgba(139, 92, 246, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            transition: var(--transition);
+        }
+
+        .breath-circle.active {
+            border-color: var(--sushumna-primary);
+            box-shadow: 
+                0 0 40px rgba(139, 92, 246, 0.4),
+                0 0 80px rgba(139, 92, 246, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .breath-content {
+            text-align: center;
+            color: var(--text-dark);
+            z-index: 10;
+        }
+
+        .breath-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .breath-icon {
+            font-size: 3rem;
+            margin: 8px 0;
+            display: block;
+        }
+
+        .breath-counter {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-medium);
+            margin-top: 8px;
+        }
+
+        .breath-progress {
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            transition: all 0.8s ease;
+        }
+
+        .breath-progress.inhale {
+            border-color: var(--ida-primary);
+            animation: breatheIn 1s ease-in-out;
+        }
+
+        .breath-progress.hold {
+            border-color: var(--pingala-primary);
+        }
+
+        .breath-progress.exhale {
+            border-color: var(--sushumna-primary);
+            animation: breatheOut 1s ease-in-out;
+        }
+
+        @keyframes breatheIn {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        @keyframes breatheOut {
+            0% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         /* HUD */
         .hud {
             display: flex;
-            gap: 16px;
-            justify-content: center;
-            padding: 20px 0;
-        }
-
-        .hud-item {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 12px 16px;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: var(--border-radius);
+            padding: 16px;
+            margin-top: 30px;
             box-shadow: var(--shadow-soft);
-            text-align: center;
-            min-width: 80px;
             backdrop-filter: blur(10px);
         }
 
+        .hud-item {
+            text-align: center;
+        }
+
         .hud-label {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 600;
             color: var(--text-medium);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 4px;
-            font-weight: 600;
         }
 
         .hud-value {
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--current-primary);
+            color: var(--sushumna-primary);
         }
 
-        /* Theme Classes */
-        body.ida {
-            --current-primary: var(--ida-primary);
-            --current-secondary: var(--ida-secondary);
-            --current-light: var(--ida-light);
-            --current-bg: var(--ida-bg);
-        }
-
-        body.pingala {
-            --current-primary: var(--pingala-primary);
-            --current-secondary: var(--pingala-secondary);
-            --current-light: var(--pingala-light);
-            --current-bg: var(--pingala-bg);
-        }
-
-        body.sushumna {
-            --current-primary: var(--sushumna-primary);
-            --current-secondary: var(--sushumna-secondary);
-            --current-light: var(--sushumna-light);
-            --current-bg: var(--sushumna-bg);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 16px;
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 16px;
-                padding: 16px 0;
-            }
-
-            .timing-details {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .timing-item {
-                padding: 12px;
-            }
-
-            .timing-duration {
-                font-size: 1.5rem;
-            }
-
-            .practice-area {
-                padding: 20px 0;
-                gap: 24px;
-            }
-
-            #breathingCanvas {
-                max-width: calc(100vw - 80px);
-                max-height: calc(50vh);
-            }
-
-            .session-selector {
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-
-            .session-btn {
-                flex: 1;
-                min-width: 80px;
-                padding: 8px 16px;
-                font-size: 0.85rem;
-            }
-
-            .hud {
-                flex-wrap: wrap;
-                gap: 12px;
-                padding: 16px 0;
-            }
-
-            .hud-item {
-                flex: 1;
-                min-width: 70px;
-                padding: 10px 12px;
-            }
-
-            .hud-value {
-                font-size: 1rem;
-            }
-
-            .timing-info {
-                margin: 16px 0;
-                padding: 20px;
-            }
-
-            .path-info {
-                padding: 12px 20px;
-            }
-
-            .path-title {
-                font-size: 1.2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header {
-                padding: 12px 0;
-            }
-
-            .back-btn {
-                padding: 10px 16px;
-                font-size: 0.9rem;
-            }
-
-            .path-chip {
-                width: 40px;
-                height: 40px;
-            }
-
-            .timing-info {
-                padding: 16px;
-            }
-
-            .timing-title {
-                font-size: 1.1rem;
-            }
-
-            .effect-description {
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Success and Summary Modals */
+        /* Summary Modal */
         .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.8);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         .modal.show {
             display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-content {
             background: white;
-            padding: 32px;
             border-radius: var(--border-radius-lg);
-            max-width: 400px;
-            width: 100%;
+            padding: 40px 32px;
+            max-width: 350px;
+            width: 90%;
             text-align: center;
             box-shadow: var(--shadow-strong);
         }
@@ -592,39 +321,39 @@
         .modal-title {
             font-family: 'Newsreader', serif;
             font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--current-primary);
-            margin-bottom: 16px;
+            font-weight: 700;
+            color: var(--sushumna-primary);
+            margin-bottom: 20px;
         }
 
         .harmony-score {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 900;
-            color: var(--current-primary);
+            color: var(--sushumna-primary);
             margin-bottom: 8px;
         }
 
         .harmony-label {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--text-medium);
             margin-bottom: 20px;
         }
 
         .encouragement {
             font-size: 1rem;
+            line-height: 1.6;
             color: var(--text-dark);
-            margin-bottom: 24px;
-            line-height: 1.5;
+            margin-bottom: 30px;
         }
 
         .modal-actions {
             display: flex;
-            gap: 12px;
+            gap: 16px;
+            justify-content: center;
         }
 
         .modal-btn {
-            flex: 1;
-            padding: 12px 20px;
+            padding: 12px 24px;
             border: none;
             border-radius: var(--border-radius);
             font-weight: 600;
@@ -633,32 +362,47 @@
         }
 
         .modal-btn.primary {
-            background: var(--current-primary);
+            background: var(--sushumna-primary);
             color: white;
-        }
-
-        .modal-btn.primary:hover {
-            background: var(--current-secondary);
         }
 
         .modal-btn.secondary {
             background: #F7FAFC;
-            color: var(--text-dark);
+            color: var(--text-medium);
             border: 1px solid #E2E8F0;
         }
 
-        .modal-btn.secondary:hover {
-            background: #EDF2F7;
+        .modal-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            .breath-circle {
+                width: 240px;
+                height: 240px;
+            }
+
+            .breath-text {
+                font-size: 1.5rem;
+            }
+
+            .breath-icon {
+                font-size: 2.5rem;
+            }
+
+            .session-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .session-btn {
+                width: 120px;
+            }
         }
     </style>
 </head>
-<body class="sushumna">
-    <!-- Moving Backgrounds -->
-    <div class="bg-video ida-bg" style="background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/414d2059-8b68-4b47-82a3-fe2d2d047289')"></div>
-    <div class="bg-video pingala-bg" style="background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/540492aa-7650-45c7-9fe2-379ea3d5788b')"></div>
-    <div class="bg-video sushumna-bg active" style="background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/de3c0ee2-67f8-4082-81d6-03e5d34bce54')"></div>
-    <div class="bg-overlay"></div>
-
+<body>
     <div class="container">
         <!-- Header -->
         <div class="header">
@@ -668,41 +412,11 @@
                 <div class="path-title" id="pathTitle">Suṣumnā</div>
                 <div class="path-subtitle" id="pathSubtitle">Both • Balanced</div>
             </div>
-
-            <div class="path-selector">
-                <div class="path-chip ida" onclick="selectPath('ida')" data-path="ida"></div>
-                <div class="path-chip pingala" onclick="selectPath('pingala')" data-path="pingala"></div>
-                <div class="path-chip sushumna active" onclick="selectPath('sushumna')" data-path="sushumna"></div>
-            </div>
-        </div>
-
-        <!-- Timing Information -->
-        <div class="timing-info" id="timingInfo">
-            <div class="timing-title" id="timingTitle">Suṣumnā Balance Practice</div>
-            <div class="timing-details">
-                <div class="timing-item">
-                    <div class="timing-phase">Inhale</div>
-                    <div class="timing-duration" id="inhaleTime">6s</div>
-                    <div class="timing-instruction">Press & Hold</div>
-                </div>
-                <div class="timing-item">
-                    <div class="timing-phase">Exhale</div>
-                    <div class="timing-duration" id="exhaleTime">8s</div>
-                    <div class="timing-instruction">Release</div>
-                </div>
-            </div>
-            <div class="timing-effect">
-                <div class="effect-title" id="effectTitle">Balancing Effect</div>
-                <div class="effect-description" id="effectDescription">
-                    This balanced 6:8 breathing ratio harmonizes both nervous systems, creating inner equilibrium. 
-                    Perfect for meditation, reducing anxiety, and transitioning between activities.
-                </div>
-            </div>
         </div>
 
         <!-- Session Controls -->
         <div class="session-controls">
-            <div class="session-title">Session Length</div>
+            <div class="session-title">Ready to breathe</div>
             <div class="session-selector">
                 <button class="session-btn" onclick="selectSession(6)" data-rounds="6">Quick 6</button>
                 <button class="session-btn active" onclick="selectSession(8)" data-rounds="8">Classic 8</button>
@@ -712,11 +426,14 @@
 
         <!-- Practice Area -->
         <div class="practice-area">
-            <div class="breathing-container">
-                <canvas id="breathingCanvas" width="280" height="280"></canvas>
-                <div class="breath-instruction">
-                    <div class="instruction-text" id="instructionText">Tap to Start</div>
-                    <div class="instruction-timer" id="instructionTimer">🧘</div>
+            <div class="breathing-container" id="breathingContainer" onclick="startBreathing()">
+                <div class="breath-circle" id="breathCircle">
+                    <div class="breath-content">
+                        <div class="breath-text" id="breathText">Tap to<br>start</div>
+                        <div class="breath-icon" id="breathIcon">🧘</div>
+                        <div class="breath-counter" id="breathCounter"></div>
+                    </div>
+                    <div class="breath-progress" id="breathProgress"></div>
                 </div>
             </div>
         </div>
@@ -729,7 +446,7 @@
             </div>
             <div class="hud-item">
                 <div class="hud-label">Harmony</div>
-                <div class="hud-value" id="harmonyValue">0</div>
+                <div class="hud-value" id="harmonyValue">●●●○○</div>
             </div>
             <div class="hud-item">
                 <div class="hud-label">Prāṇa</div>
@@ -748,535 +465,176 @@
                 Beautiful rhythm! Your breath found its natural flow.
             </div>
             <div class="modal-actions">
-                <button class="modal-btn secondary" onclick="closeSummary()">Close</button>
-                <button class="modal-btn primary" onclick="playAgain()">Practice Again</button>
+                <button class="modal-btn primary" onclick="restartPractice()">Practice Again</button>
+                <button class="modal-btn secondary" onclick="closeSummary()">Done</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Game state
-        let currentPath = 'sushumna';
-        let sessionRounds = 8;
-        let currentRound = 1;
-        let gameState = 'ready'; // ready, playing, complete
-        let breathPhase = 'ready'; // ready, inhale, exhale
-        let phaseStartTime = 0;
-        let currentPhaseTime = 0;
-        let targetPhaseTime = 0;
-        let isPressed = false;
-        let animationFrame = null;
-        
-        // Scoring
-        let harmonyScores = [];
-        let roundTimings = [];
-        let toleranceWindow = { start: 450, min: 160, max: 600 }; // ms
-        
-        // Audio context
-        let audioContext = null;
-        let tickAudioBuffer = null;
-        
-        // Canvas
-        let canvas = null;
-        let ctx = null;
-        
-        // Path configurations with detailed timing and effects
-        const pathConfigs = {
-            ida: {
-                name: 'Idā',
-                subtitle: 'Left • Cooling',
-                inhaleTime: 4000,  // 4s
-                exhaleTime: 6000,  // 6s
-                bgClass: 'ida-bg',
-                effectTitle: 'Cooling & Calming Effect',
-                effectDescription: 'This 4:6 breathing ratio activates the parasympathetic nervous system, reducing stress and body temperature. Enhances focus, creativity, and prepares mind for rest. Perfect for evening practice or when feeling overwhelmed.'
-            },
-            pingala: {
-                name: 'Piṅgala', 
-                subtitle: 'Right • Heating',
-                inhaleTime: 5000,  // 5s
-                exhaleTime: 4000,  // 4s (shorter exhale for activation)
-                bgClass: 'pingala-bg',
-                effectTitle: 'Energizing & Activating Effect',
-                effectDescription: 'This 5:4 breathing ratio stimulates the sympathetic nervous system, increasing alertness and body heat. Boosts energy, confidence, and physical performance. Ideal for morning practice or before important tasks.'
-            },
-            sushumna: {
-                name: 'Suṣumnā',
-                subtitle: 'Both • Balanced', 
-                inhaleTime: 6000,  // 6s
-                exhaleTime: 8000,  // 8s
-                bgClass: 'sushumna-bg',
-                effectTitle: 'Balancing & Harmonizing Effect',
-                effectDescription: 'This balanced 6:8 breathing ratio harmonizes both nervous systems, creating inner equilibrium. Perfect for meditation, reducing anxiety, and transitioning between activities. Promotes deep relaxation and mental clarity.'
-            }
+        // Breathing State
+        let breathingState = {
+            isActive: false,
+            phase: 'ready',
+            round: 1,
+            maxRounds: 8,
+            inhaleTime: 4,
+            holdTime: 7,
+            exhaleTime: 8,
+            currentTimer: 0,
+            phaseTimer: null,
+            intervalTimer: null
         };
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            canvas = document.getElementById('breathingCanvas');
-            ctx = canvas.getContext('2d');
-            
-            // Get path from URL or localStorage
-            const urlParams = new URLSearchParams(window.location.search);
-            const pathParam = urlParams.get('path') || localStorage.getItem('selectedPath');
-            if (pathParam && pathConfigs[pathParam]) {
-                selectPath(pathParam);
+
+        // Start breathing function
+        function startBreathing() {
+            if (breathingState.isActive) {
+                stopBreathing();
+                return;
             }
             
-            // Initialize canvas size
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
+            breathingState.isActive = true;
+            breathingState.phase = 'ready';
+            breathingState.round = 1;
             
-            // Setup event listeners with improved touch handling
-            canvas.addEventListener('mousedown', handlePressStart);
-            canvas.addEventListener('mouseup', handlePressEnd);
-            canvas.addEventListener('mouseleave', handlePressEnd);
+            document.getElementById('breathCircle').classList.add('active');
             
-            // Enhanced touch events
-            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-            canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
-            canvas.addEventListener('touchcancel', handleTouchEnd, { passive: false });
+            // Ready phase
+            document.getElementById('breathText').innerHTML = 'Ready to<br>breathe';
+            document.getElementById('breathIcon').textContent = '🫁';
+            document.getElementById('breathCounter').textContent = 'Get comfortable';
             
-            // Prevent context menu and scrolling
-            canvas.addEventListener('contextmenu', (e) => e.preventDefault());
-            canvas.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
-            
-            // Start render loop
-            render();
-        });
-        
-        // Canvas sizing for mobile optimization
-        function resizeCanvas() {
-            const containerWidth = document.querySelector('.practice-area').clientWidth;
-            const maxSize = Math.min(containerWidth * 0.8, window.innerHeight * 0.35, 320);
-            const size = Math.max(240, maxSize); // Minimum 240px
-            
-            canvas.width = size;
-            canvas.height = size;
-            canvas.style.width = size + 'px';
-            canvas.style.height = size + 'px';
-        }
-        
-        // Audio initialization
-        async function initAudio() {
-            if (!audioContext) {
-                try {
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    
-                    // Create soft tick sound
-                    const buffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.1, audioContext.sampleRate);
-                    const data = buffer.getChannelData(0);
-                    for (let i = 0; i < data.length; i++) {
-                        data[i] = Math.sin(2 * Math.PI * 800 * i / audioContext.sampleRate) * 
-                                  Math.exp(-i / (audioContext.sampleRate * 0.05));
-                    }
-                    tickAudioBuffer = buffer;
-                } catch (e) {
-                    console.log('Audio not supported');
+            setTimeout(() => {
+                if (breathingState.isActive) {
+                    breathingState.phase = 'inhale';
+                    nextPhase();
                 }
-            }
-        }
-        
-        // Play soft tick
-        function playTick() {
-            if (audioContext && tickAudioBuffer) {
-                try {
-                    const source = audioContext.createBufferSource();
-                    const gainNode = audioContext.createGain();
-                    
-                    source.buffer = tickAudioBuffer;
-                    source.connect(gainNode);
-                    gainNode.connect(audioContext.destination);
-                    
-                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                    source.start();
-                } catch (e) {
-                    console.log('Audio playback failed');
-                }
-            }
-        }
-        
-        // Haptic feedback
-        function vibrate(duration = 20) {
-            if (navigator.vibrate) {
-                navigator.vibrate(duration);
-            }
-        }
-        
-        // Path selection with timing info update
-        function selectPath(path) {
-            currentPath = path;
-            const config = pathConfigs[path];
+            }, 3000);
             
-            // Update UI
-            document.getElementById('pathTitle').textContent = config.name;
-            document.getElementById('pathSubtitle').textContent = config.subtitle;
-            document.body.className = path;
-            
-            // Update timing info
-            document.getElementById('timingTitle').textContent = `${config.name} ${config.subtitle.split(' • ')[1]} Practice`;
-            document.getElementById('inhaleTime').textContent = `${config.inhaleTime / 1000}s`;
-            document.getElementById('exhaleTime').textContent = `${config.exhaleTime / 1000}s`;
-            document.getElementById('effectTitle').textContent = config.effectTitle;
-            document.getElementById('effectDescription').textContent = config.effectDescription;
-            
-            // Update path chips
-            document.querySelectorAll('.path-chip').forEach(chip => {
-                chip.classList.toggle('active', chip.dataset.path === path);
-            });
-            
-            // Update background
-            document.querySelectorAll('.bg-video').forEach(bg => {
-                bg.classList.toggle('active', bg.classList.contains(config.bgClass));
-            });
-            
-            localStorage.setItem('selectedPath', path);
-        }
-        
-        // Session selection
-        function selectSession(rounds) {
-            sessionRounds = rounds;
-            document.getElementById('roundValue').textContent = `1 / ${rounds}`;
-            
-            // Update session buttons
-            document.querySelectorAll('.session-btn').forEach(btn => {
-                btn.classList.toggle('active', parseInt(btn.dataset.rounds) === rounds);
-            });
-        }
-        
-        // Enhanced press/touch handling
-        function handlePressStart(e) {
-            e.preventDefault();
-            
-            if (gameState === 'ready') {
-                startGame();
-            } else if (gameState === 'playing' && breathPhase === 'ready') {
-                startInhale();
-            }
-        }
-        
-        function handlePressEnd(e) {
-            e.preventDefault();
-            
-            if (gameState === 'playing' && breathPhase === 'inhale') {
-                startExhale();
-            }
-        }
-        
-        // Dedicated touch handlers for better mobile experience
-        function handleTouchStart(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Add visual feedback
-            canvas.style.transform = 'scale(0.98)';
-            
-            if (gameState === 'ready') {
-                startGame();
-            } else if (gameState === 'playing' && breathPhase === 'ready') {
-                startInhale();
-            }
-        }
-        
-        function handleTouchEnd(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Remove visual feedback
-            canvas.style.transform = 'scale(1)';
-            
-            if (gameState === 'playing' && breathPhase === 'inhale') {
-                startExhale();
-            }
-        }
-        
-        // Game flow
-        function startGame() {
-            initAudio();
-            gameState = 'playing';
-            currentRound = 1;
-            harmonyScores = [];
-            roundTimings = [];
             updateUI();
-            
-            document.getElementById('instructionText').textContent = 'Ready to breathe';
-            document.getElementById('instructionTimer').textContent = 'Tap to start inhale';
         }
-        
-        function startInhale() {
-            breathPhase = 'inhale';
-            phaseStartTime = performance.now();
-            targetPhaseTime = pathConfigs[currentPath].inhaleTime;
-            isPressed = true;
+
+        function nextPhase() {
+            if (!breathingState.isActive) return;
             
-            document.getElementById('instructionText').textContent = 'Breathe In';
-            document.getElementById('instructionTimer').textContent = Math.ceil(targetPhaseTime / 1000);
+            const progressEl = document.getElementById('breathProgress');
+            progressEl.className = 'breath-progress';
             
-            playTick();
-            vibrate(15);
+            switch(breathingState.phase) {
+                case 'inhale':
+                    document.getElementById('breathText').innerHTML = 'inhale';
+                    document.getElementById('breathIcon').textContent = '💨';
+                    progressEl.classList.add('inhale');
+                    
+                    startPhaseTimer(breathingState.inhaleTime, () => {
+                        breathingState.phase = 'hold';
+                        nextPhase();
+                    });
+                    break;
+                    
+                case 'hold':
+                    document.getElementById('breathText').innerHTML = 'hold';
+                    document.getElementById('breathIcon').textContent = '⏸️';
+                    progressEl.classList.add('hold');
+                    
+                    startPhaseTimer(breathingState.holdTime, () => {
+                        breathingState.phase = 'exhale';
+                        nextPhase();
+                    });
+                    break;
+                    
+                case 'exhale':
+                    document.getElementById('breathText').innerHTML = 'exhale';
+                    document.getElementById('breathIcon').textContent = '🌬️';
+                    progressEl.classList.add('exhale');
+                    
+                    startPhaseTimer(breathingState.exhaleTime, () => {
+                        breathingState.round++;
+                        
+                        if (breathingState.round > breathingState.maxRounds) {
+                            endSession();
+                        } else {
+                            breathingState.phase = 'inhale';
+                            updateUI();
+                            nextPhase();
+                        }
+                    });
+                    break;
+            }
         }
-        
-        function startExhale() {
-            const inhaleTime = performance.now() - phaseStartTime;
-            breathPhase = 'exhale';
-            phaseStartTime = performance.now();
-            targetPhaseTime = pathConfigs[currentPath].exhaleTime;
-            isPressed = false;
+
+        function startPhaseTimer(duration, callback) {
+            breathingState.currentTimer = duration;
             
-            document.getElementById('instructionText').textContent = 'Breathe Out';
-            document.getElementById('instructionTimer').textContent = Math.ceil(targetPhaseTime / 1000);
-            
-            playTick();
-            vibrate(20);
-            
-            // Calculate timing score for inhale
-            const inhaleTimingScore = calculateTimingScore(inhaleTime, pathConfigs[currentPath].inhaleTime);
-            roundTimings.push({ 
-                phase: 'inhale', 
-                time: inhaleTime, 
-                score: inhaleTimingScore, 
-                target: pathConfigs[currentPath].inhaleTime 
-            });
-        }
-        
-        function completeExhale() {
-            const exhaleTime = performance.now() - phaseStartTime;
-            
-            // Calculate timing score for exhale
-            const exhaleTimingScore = calculateTimingScore(exhaleTime, pathConfigs[currentPath].exhaleTime);
-            roundTimings.push({ 
-                phase: 'exhale', 
-                time: exhaleTime, 
-                score: exhaleTimingScore, 
-                target: pathConfigs[currentPath].exhaleTime 
-            });
-            
-            // Calculate harmony score for this round
-            const roundHarmony = calculateRoundHarmony();
-            harmonyScores.push(roundHarmony);
-            
-            // Update tolerance based on performance
-            adaptTolerance();
-            
-            currentRound++;
-            updateUI();
-            
-            if (currentRound > sessionRounds) {
-                completeSession();
-            } else {
-                // Brief pause before next round
-                breathPhase = 'ready';
-                document.getElementById('instructionText').textContent = 'Ready for next round';
-                document.getElementById('instructionTimer').textContent = '🧘';
+            const updateCounter = () => {
+                if (!breathingState.isActive) return;
                 
-                setTimeout(() => {
-                    if (gameState === 'playing') {
-                        document.getElementById('instructionText').textContent = 'Tap to continue';
-                        document.getElementById('instructionTimer').textContent = 'Ready';
-                    }
-                }, 1500);
+                document.getElementById('breathCounter').textContent = `${breathingState.currentTimer} cycles left`;
+                
+                if (breathingState.currentTimer <= 0) {
+                    callback();
+                } else {
+                    breathingState.currentTimer--;
+                    setTimeout(updateCounter, 1000);
+                }
+            };
+            
+            updateCounter();
+        }
+
+        function stopBreathing() {
+            breathingState.isActive = false;
+            breathingState.phase = 'ready';
+            
+            if (breathingState.intervalTimer) {
+                clearInterval(breathingState.intervalTimer);
             }
             
-            vibrate(10);
+            document.getElementById('breathCircle').classList.remove('active');
+            document.getElementById('breathProgress').className = 'breath-progress';
+            document.getElementById('breathText').innerHTML = 'Tap to<br>start';
+            document.getElementById('breathIcon').textContent = '🧘';
+            document.getElementById('breathCounter').textContent = '';
+            
+            updateUI();
         }
-        
-        function completeSession() {
-            gameState = 'complete';
-            
-            const avgHarmony = Math.round(harmonyScores.reduce((a, b) => a + b, 0) / harmonyScores.length);
-            const encouragement = getEncouragement(avgHarmony);
-            
-            document.getElementById('finalHarmony').textContent = avgHarmony;
-            document.getElementById('encouragementText').textContent = encouragement;
+
+        function endSession() {
+            breathingState.isActive = false;
             document.getElementById('summaryModal').classList.add('show');
         }
-        
-        // Enhanced scoring calculations
-        function calculateTimingScore(actualTime, targetTime) {
-            const diff = Math.abs(actualTime - targetTime);
-            const tolerance = toleranceWindow.start;
+
+        function selectSession(rounds) {
+            breathingState.maxRounds = rounds;
             
-            if (diff <= tolerance) {
-                const normalized = diff / tolerance;
-                return Math.max(0, 100 * (1 - normalized * normalized));
-            } else {
-                return Math.max(0, 20 - (diff - tolerance) / 100);
-            }
-        }
-        
-        function calculateRoundHarmony() {
-            if (roundTimings.length < 2) return 50;
-            
-            // Get the most recent inhale and exhale pair
-            const recentTimings = roundTimings.slice(-2);
-            const inhale = recentTimings.find(t => t.phase === 'inhale');
-            const exhale = recentTimings.find(t => t.phase === 'exhale');
-            
-            if (!inhale || !exhale) return 50;
-            
-            // Timing component (50%)
-            const timingScore = (inhale.score + exhale.score) / 2;
-            
-            // Press/Release precision (30%)
-            const pressReleaseScore = Math.min(100, (inhale.score + exhale.score) * 0.6);
-            
-            // Consistency component (20%)
-            let consistencyScore = 50;
-            if (harmonyScores.length >= 2) {
-                const recent = harmonyScores.slice(-2);
-                const mean = recent.reduce((a, b) => a + b, 0) / recent.length;
-                const variance = recent.reduce((a, b) => a + (b - mean) ** 2, 0) / recent.length;
-                const stddev = Math.sqrt(variance);
-                consistencyScore = Math.max(20, 100 - stddev * 1.5);
-            }
-            
-            return Math.max(0, Math.min(100, Math.round(
-                timingScore * 0.5 + pressReleaseScore * 0.3 + consistencyScore * 0.2
-            )));
-        }
-        
-        function adaptTolerance() {
-            if (harmonyScores.length < 3) return;
-            
-            const recent = harmonyScores.slice(-3);
-            const avgRecent = recent.reduce((a, b) => a + b, 0) / recent.length;
-            
-            if (avgRecent >= 90) {
-                toleranceWindow.start = Math.max(toleranceWindow.min, toleranceWindow.start - 40);
-            } else if (avgRecent <= 70) {
-                toleranceWindow.start = Math.min(toleranceWindow.max, toleranceWindow.start + 40);
-            }
-        }
-        
-        function getEncouragement(score) {
-            if (score >= 90) return "Exceptional harmony! Your breath flows like silk.";
-            if (score >= 80) return "Beautiful rhythm! Your breath found its natural flow.";
-            if (score >= 70) return "Well done! You're finding your pace.";
-            if (score >= 60) return "Good start! Keep practicing your rhythm.";
-            return "Every breath is practice. Keep going with patience.";
-        }
-        
-        // Update UI
-        function updateUI() {
-            document.getElementById('roundValue').textContent = `${Math.min(currentRound, sessionRounds)} / ${sessionRounds}`;
-            
-            if (harmonyScores.length > 0) {
-                const avgHarmony = Math.round(harmonyScores.reduce((a, b) => a + b, 0) / harmonyScores.length);
-                document.getElementById('harmonyValue').textContent = avgHarmony;
-            }
-            
-            // Update Prāṇa meter
-            const pranaLevel = Math.min(5, Math.floor(harmonyScores.length * 5 / sessionRounds) + 1);
-            const pranaDots = '●'.repeat(pranaLevel) + '○'.repeat(5 - pranaLevel);
-            document.getElementById('pranaValue').textContent = pranaDots;
-        }
-        
-        // Render loop with enhanced visual feedback
-        function render() {
-            if (!ctx) return;
-            
-            const size = canvas.width;
-            const centerX = size / 2;
-            const centerY = size / 2;
-            const baseRadius = size * 0.35;
-            
-            // Clear canvas
-            ctx.clearRect(0, 0, size, size);
-            
-            // Calculate current phase progress
-            let progress = 0;
-            let radius = baseRadius;
-            
-            if (breathPhase === 'inhale' || breathPhase === 'exhale') {
-                currentPhaseTime = performance.now() - phaseStartTime;
-                progress = Math.min(currentPhaseTime / targetPhaseTime, 1);
-                
-                // Breathing animation
-                if (breathPhase === 'inhale') {
-                    radius = baseRadius + (baseRadius * 0.3 * progress);
-                } else {
-                    radius = baseRadius * 1.3 - (baseRadius * 0.3 * progress);
+            document.querySelectorAll('.session-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.rounds == rounds) {
+                    btn.classList.add('active');
                 }
-                
-                // Auto-complete phases
-                if (progress >= 1) {
-                    if (breathPhase === 'exhale') {
-                        completeExhale();
-                    }
-                }
-                
-                // Update timer display
-                const remaining = Math.ceil((targetPhaseTime - currentPhaseTime) / 1000);
-                document.getElementById('instructionTimer').textContent = Math.max(0, remaining);
-            }
+            });
             
-            // Draw outer ring
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, radius + 6, 0, 2 * Math.PI);
-            ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--current-primary');
-            ctx.lineWidth = 3;
-            ctx.stroke();
-            
-            // Draw progress ring
-            if (breathPhase === 'inhale' || breathPhase === 'exhale') {
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, radius + 6, -Math.PI / 2, -Math.PI / 2 + (2 * Math.PI * progress));
-                ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--current-primary');
-                ctx.lineWidth = 8;
-                ctx.stroke();
-                
-                // Shimmer effect near completion
-                if (progress > 0.8) {
-                    const shimmerAlpha = Math.sin((performance.now() % 1000) / 1000 * Math.PI * 4) * 0.3 + 0.7;
-                    ctx.globalAlpha = shimmerAlpha;
-                    ctx.beginPath();
-                    ctx.arc(centerX, centerY, radius + 6, -Math.PI / 2 + (2 * Math.PI * 0.8), -Math.PI / 2 + (2 * Math.PI * progress));
-                    ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--current-primary');
-                    ctx.lineWidth = 12;
-                    ctx.stroke();
-                    ctx.globalAlpha = 1;
-                }
-            }
-            
-            // Draw main circle
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
-            const currentPrimary = getComputedStyle(document.body).getPropertyValue('--current-primary');
-            const currentLight = getComputedStyle(document.body).getPropertyValue('--current-light');
-            gradient.addColorStop(0, currentLight + '80');
-            gradient.addColorStop(1, currentPrimary + '40');
-            ctx.fillStyle = gradient;
-            ctx.fill();
-            
-            // Continue render loop
-            animationFrame = requestAnimationFrame(render);
-        }
-        
-        // Modal functions
-        function closeSummary() {
-            document.getElementById('summaryModal').classList.remove('show');
-            gameState = 'ready';
-            breathPhase = 'ready';
-            currentRound = 1;
-            harmonyScores = [];
-            roundTimings = [];
-            document.getElementById('instructionText').textContent = 'Tap to Start';
-            document.getElementById('instructionTimer').textContent = '🧘';
             updateUI();
         }
-        
-        function playAgain() {
-            closeSummary();
-            setTimeout(startGame, 100);
+
+        function updateUI() {
+            document.getElementById('roundValue').textContent = `${breathingState.round} / ${breathingState.maxRounds}`;
         }
-        
-        // Handle page visibility
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden && gameState === 'playing') {
-                gameState = 'paused';
-            }
-        });
+
+        function restartPractice() {
+            document.getElementById('summaryModal').classList.remove('show');
+            breathingState.round = 1;
+            updateUI();
+        }
+
+        function closeSummary() {
+            document.getElementById('summaryModal').classList.remove('show');
+            breathingState.round = 1;
+            updateUI();
+        }
+
+        // Initialize
+        updateUI();
     </script>
 </body>
 </html>
