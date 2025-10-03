@@ -148,7 +148,12 @@
 
         .yantra-banner {
             position: relative;
-            background: linear-gradient(135deg, var(--cream) 0%, #F0F8FF 50%, var(--accent-blue) 100%);
+            background: linear-gradient(135deg, 
+                var(--cream) 0%, 
+                #F8F4E6 25%, 
+                #E8F5F3 50%, 
+                #D1F2EF 75%, 
+                var(--accent-blue) 100%);
             border-radius: var(--border-radius-lg);
             min-height: 400px;
             display: flex;
@@ -165,15 +170,35 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
             background-image: url('https://page.gensparksite.com/v1/base64_upload/967e9b30f4eb961b76ec38df9286f25e');
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.15;
+            opacity: 0.35;
             z-index: 1;
-            animation: gentleRotate 20s linear infinite;
+            animation: gentleRotate 30s linear infinite;
+            filter: brightness(1.2) contrast(1.1);
+        }
+
+        /* Add multiple rotating yantra layers for richer effect */
+        .yantra-banner::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            background-image: url('https://page.gensparksite.com/v1/base64_upload/967e9b30f4eb961b76ec38df9286f25e');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.2;
+            z-index: 1;
+            animation: gentleRotateReverse 25s linear infinite;
+            filter: brightness(0.8) contrast(1.3);
         }
 
         @keyframes gentleRotate {
@@ -181,14 +206,23 @@
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
+        @keyframes gentleRotateReverse {
+            0% { transform: translate(-50%, -50%) rotate(360deg) scale(0.8); }
+            100% { transform: translate(-50%, -50%) rotate(0deg) scale(0.8); }
+        }
+
         .yantra-content {
             position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.95);
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: var(--border-radius);
             padding: 48px 40px;
-            backdrop-filter: blur(15px);
-            box-shadow: var(--shadow-medium);
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                var(--shadow-medium),
+                0 0 30px rgba(59, 181, 173, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
             text-align: center;
             display: flex;
             align-items: center;
@@ -379,9 +413,15 @@
             }
 
             .yantra-banner::before {
-                width: 200px;
-                height: 200px;
-                opacity: 0.1;
+                width: 280px;
+                height: 280px;
+                opacity: 0.25;
+            }
+            
+            .yantra-banner::after {
+                width: 180px;
+                height: 180px;
+                opacity: 0.15;
             }
 
             .yantra-content {
@@ -424,8 +464,15 @@
             }
 
             .yantra-banner::before {
-                width: 150px;
-                height: 150px;
+                width: 200px;
+                height: 200px;
+                opacity: 0.2;
+            }
+            
+            .yantra-banner::after {
+                width: 120px;
+                height: 120px;
+                opacity: 0.1;
             }
 
             .yantra-content {
