@@ -47,6 +47,20 @@
             box-sizing: border-box; 
         }
 
+        /* Prevent any default browser behavior that might cause duplication */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        /* Prevent element duplication */
+        nav:nth-of-type(n+2),
+        .hero:nth-of-type(n+2),
+        .yantra-banner:nth-of-type(n+2) {
+            display: none !important;
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
@@ -55,6 +69,8 @@
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            position: relative;
         }
 
         /* Container */
@@ -130,6 +146,8 @@
             padding: 120px 0 80px;
             position: relative;
             overflow: hidden;
+            width: 100%;
+            max-width: 100%;
         }
 
         .yantra-banner {
@@ -140,6 +158,8 @@
             background-repeat: no-repeat;
             border-radius: var(--border-radius-lg);
             min-height: 500px;
+            max-width: 100%;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -147,6 +167,7 @@
             overflow: hidden;
             animation: gentleFloat 8s ease-in-out infinite;
             background-color: var(--cream);
+            margin: 0 auto;
         }
 
         @keyframes gentleFloat {
@@ -461,14 +482,15 @@
         .install-prompt {
             position: fixed;
             bottom: -100px;
-            left: 20px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
             max-width: 400px;
-            margin: 0 auto;
             background: white;
             border-radius: var(--border-radius);
             padding: 20px;
             box-shadow: var(--shadow-strong);
+            z-index: 10000;
             transition: bottom 0.3s ease;
             z-index: 1000;
             border: 2px solid var(--accent-blue);
@@ -538,6 +560,30 @@
 
         .install-btn.secondary:hover {
             background: #EDF2F7;
+        }
+
+        /* Fix layout issues and prevent overflow */
+        .container {
+            overflow: hidden;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Hide browser PWA install prompts that might interfere */
+        #chrome-install-banner,
+        .app-install-banner,
+        .pwa-install-prompt {
+            display: none !important;
+        }
+
+        /* Ensure single navigation */
+        nav:not(:first-of-type) {
+            display: none !important;
+        }
+
+        /* Prevent duplicate content */
+        .hero:not(:first-of-type) {
+            display: none !important;
         }
     </style>
 </head>
@@ -650,12 +696,13 @@
             e.preventDefault();
             deferredPrompt = e;
             
-            // Show install prompt after 3 seconds
+            // Show install prompt after 5 seconds, only if not dismissed
             setTimeout(() => {
-                if (!localStorage.getItem('installDismissed')) {
+                if (!localStorage.getItem('installDismissed') && !sessionStorage.getItem('installShown')) {
                     document.getElementById('installPrompt').classList.add('show');
+                    sessionStorage.setItem('installShown', 'true');
                 }
-            }, 3000);
+            }, 5000);
         });
 
         function installApp() {
