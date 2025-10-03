@@ -118,6 +118,97 @@
             margin-bottom: 40px;
         }
 
+        /* Pattern Info */
+        .pattern-info {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(10px);
+        }
+
+        .pattern-title {
+            font-family: 'Newsreader', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--sushumna-primary);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .pattern-timing {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .timing-card {
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .timing-card.inhale-card {
+            background: rgba(59, 181, 173, 0.08);
+        }
+
+        .timing-card.exhale-card {
+            background: rgba(139, 92, 246, 0.08);
+        }
+
+        .timing-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .timing-duration {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--sushumna-primary);
+            margin-bottom: 4px;
+        }
+
+        .inhale-card .timing-duration {
+            color: var(--ida-primary);
+        }
+
+        .exhale-card .timing-duration {
+            color: var(--sushumna-primary);
+        }
+
+        .timing-instruction {
+            font-size: 0.85rem;
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+
+        .pattern-description {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(255, 255, 255, 0.8) 100%);
+            border-radius: var(--border-radius);
+            padding: 16px;
+            border-left: 4px solid var(--sushumna-primary);
+        }
+
+        .effect-title {
+            font-weight: 600;
+            color: var(--sushumna-primary);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .effect-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-dark);
+        }
+
         .session-title {
             font-size: 1.1rem;
             font-weight: 600;
@@ -465,9 +556,30 @@
             </div>
         </div>
 
+        <!-- Breathing Pattern Info -->
+        <div class="pattern-info">
+            <div class="pattern-title" id="patternTitle">Suṣumnā Balanced Practice</div>
+            <div class="pattern-timing">
+                <div class="timing-card inhale-card">
+                    <div class="timing-label">INHALE</div>
+                    <div class="timing-duration" id="inhaleDuration">6s</div>
+                    <div class="timing-instruction">Press & Hold</div>
+                </div>
+                <div class="timing-card exhale-card">
+                    <div class="timing-label">EXHALE</div>
+                    <div class="timing-duration" id="exhaleDuration">8s</div>
+                    <div class="timing-instruction">Release</div>
+                </div>
+            </div>
+            <div class="pattern-description" id="patternDescription">
+                <div class="effect-title">Balancing & Harmonizing Effect</div>
+                <div class="effect-text">This balanced 6:8 breathing ratio harmonizes both nervous systems, creating inner equilibrium. Perfect for meditation, reducing anxiety, and transitioning between activities. Promotes deep relaxation and mental clarity.</div>
+            </div>
+        </div>
+        
         <!-- Session Controls -->
         <div class="session-controls">
-            <div class="session-title">Ready to breathe</div>
+            <div class="session-title">Session Length</div>
             <div class="session-selector">
                 <button class="session-btn" onclick="selectSession(6)" data-rounds="6">Quick 6</button>
                 <button class="session-btn active" onclick="selectSession(8)" data-rounds="8">Classic 8</button>
@@ -523,21 +635,27 @@
     </div>
 
     <script>
-        // Breathing State with Path Support
+        // Breathing State with Correct Nadi Patterns
         let breathingState = {
             isActive: false,
             phase: 'ready',
             round: 1,
             maxRounds: 8,
-            inhaleTime: 4,
-            holdTime: 7,
-            exhaleTime: 8,
+            inhaleTime: 6, // Default Sushumna
+            exhaleTime: 8,  // Default Sushumna  
             currentTimer: 0,
             phaseTimer: null,
             intervalTimer: null,
             isHolding: false,
             holdStartTime: 0,
             currentPath: 'sushumna'
+        };
+        
+        // Nadi-specific breathing patterns
+        const nadiPatterns = {
+            ida: { inhale: 4, exhale: 6 },        // Left • Cooling
+            pingala: { inhale: 5, exhale: 4 },    // Right • Heating  
+            sushumna: { inhale: 6, exhale: 8 }    // Both • Balanced
         };
 
         // Touch/Mouse Event Handlers for Hold Functionality
@@ -630,9 +748,9 @@
             document.getElementById('breathCircle').classList.add('active');
             
             // Ready phase
-            document.getElementById('breathText').textContent = 'Ready to breathe';
-            document.getElementById('breathIcon').textContent = '🫁';
-            document.getElementById('breathCounter').textContent = 'Get comfortable';
+            document.getElementById('breathText').textContent = 'Tap to Start';
+            document.getElementById('breathIcon').textContent = '🧘';
+            document.getElementById('breathCounter').textContent = '';
             
             setTimeout(() => {
                 if (breathingState.isActive) {
@@ -652,29 +770,18 @@
             
             switch(breathingState.phase) {
                 case 'inhale':
-                    document.getElementById('breathText').textContent = 'Breathe In';
+                    document.getElementById('breathText').textContent = 'Inhale';
                     document.getElementById('breathIcon').textContent = '💨';
                     progressEl.classList.add('inhale');
                     
                     startHoldPhaseTimer(breathingState.inhaleTime, () => {
-                        breathingState.phase = 'hold';
-                        nextPhase();
-                    });
-                    break;
-                    
-                case 'hold':
-                    document.getElementById('breathText').textContent = 'Hold';
-                    document.getElementById('breathIcon').textContent = '⏸️';
-                    progressEl.classList.add('hold');
-                    
-                    startHoldPhaseTimer(breathingState.holdTime, () => {
                         breathingState.phase = 'exhale';
                         nextPhase();
                     });
                     break;
                     
                 case 'exhale':
-                    document.getElementById('breathText').textContent = 'Breathe Out';
+                    document.getElementById('breathText').textContent = 'Exhale';
                     document.getElementById('breathIcon').textContent = '🌬️';
                     progressEl.classList.add('exhale');
                     
@@ -794,6 +901,14 @@
             const pathSubtitle = document.getElementById('pathSubtitle');
             const breathCircle = document.getElementById('breathCircle');
             
+            // Update breathing pattern based on nadi
+            const pattern = nadiPatterns[path];
+            breathingState.inhaleTime = pattern.inhale;
+            breathingState.exhaleTime = pattern.exhale;
+            
+            // Update pattern info display
+            updatePatternInfo(path);
+            
             switch(path) {
                 case 'ida':
                     pathTitle.textContent = 'Idā Nadi';
@@ -802,7 +917,7 @@
                     document.documentElement.style.setProperty('--current-primary', '#3BB5AD');
                     break;
                 case 'pingala':
-                    pathTitle.textContent = 'Piṅgalā Nadi';
+                    pathTitle.textContent = 'Piṅgala Nadi';
                     pathSubtitle.textContent = 'Right • Heating';
                     breathCircle.style.borderColor = 'rgba(246, 164, 58, 0.4)';
                     document.documentElement.style.setProperty('--current-primary', '#F6A43A');
@@ -812,6 +927,39 @@
                     pathSubtitle.textContent = 'Both • Balanced';
                     breathCircle.style.borderColor = 'rgba(139, 92, 246, 0.4)';
                     document.documentElement.style.setProperty('--current-primary', '#8B5CF6');
+            }
+        }
+        
+        function updatePatternInfo(path) {
+            const patternTitle = document.getElementById('patternTitle');
+            const inhaleDuration = document.getElementById('inhaleDuration');
+            const exhaleDuration = document.getElementById('exhaleDuration');
+            const patternDescription = document.querySelector('.effect-text');
+            const effectTitle = document.querySelector('.effect-title');
+            
+            const pattern = nadiPatterns[path];
+            
+            switch(path) {
+                case 'ida':
+                    patternTitle.textContent = 'Idā Cooling Practice';
+                    inhaleDuration.textContent = `${pattern.inhale}s`;
+                    exhaleDuration.textContent = `${pattern.exhale}s`;
+                    effectTitle.textContent = 'Calming & Cooling Effect';
+                    patternDescription.textContent = 'This 4:6 breathing pattern activates the parasympathetic nervous system, lowering heart rate and body temperature. Perfect for study, creative work, reading, meditation, and evening activities. Enhances focus and promotes calm thinking.';
+                    break;
+                case 'pingala':
+                    patternTitle.textContent = 'Piṅgala Energizing Practice';
+                    inhaleDuration.textContent = `${pattern.inhale}s`;
+                    exhaleDuration.textContent = `${pattern.exhale}s`;
+                    effectTitle.textContent = 'Energizing & Heating Effect';
+                    patternDescription.textContent = 'This 5:4 breathing pattern activates the sympathetic nervous system, increasing heart rate and body temperature. Perfect for exercise, presentations, decision-making, and morning activities. Boosts alertness and enhances logical thinking.';
+                    break;
+                default:
+                    patternTitle.textContent = 'Suṣumnā Balanced Practice';
+                    inhaleDuration.textContent = `${pattern.inhale}s`;
+                    exhaleDuration.textContent = `${pattern.exhale}s`;
+                    effectTitle.textContent = 'Balancing & Harmonizing Effect';
+                    patternDescription.textContent = 'This balanced 6:8 breathing ratio harmonizes both nervous systems, creating inner equilibrium. Perfect for meditation, reducing anxiety, and transitioning between activities. Promotes deep relaxation and mental clarity.';
             }
         }
 
