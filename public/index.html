@@ -21,7 +21,6 @@
     
     <style>
         :root {
-            /* Primary Colors - Enhanced for readability */
             --primary-teal: #0E2A36;
             --primary-teal-light: #1A3E4A;
             --accent-blue: #3BB5AD;
@@ -32,7 +31,6 @@
             --text-medium: #4A5568;
             --text-light: #718096;
             
-            /* Design tokens */
             --border-radius: 16px;
             --border-radius-lg: 24px;
             --shadow-soft: 0 4px 20px rgba(14, 42, 54, 0.1);
@@ -47,18 +45,9 @@
             box-sizing: border-box; 
         }
 
-        /* Prevent any default browser behavior that might cause duplication */
         html, body {
+            height: 100%;
             overflow-x: hidden;
-            width: 100%;
-            max-width: 100vw;
-        }
-
-        /* Prevent element duplication */
-        nav:nth-of-type(n+2),
-        .hero:nth-of-type(n+2),
-        .yantra-banner:nth-of-type(n+2) {
-            display: none !important;
         }
 
         body {
@@ -66,14 +55,10 @@
             line-height: 1.6;
             color: var(--text-dark);
             background: linear-gradient(135deg, var(--cream) 0%, #F7FAFC 100%);
-            min-height: 100vh;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-            position: relative;
         }
 
-        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -141,13 +126,16 @@
             color: var(--primary-teal);
         }
 
-        /* Hero Section with Banner */
+        /* Main Content */
+        main {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
         .hero {
-            padding: 120px 0 80px;
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            max-width: 100%;
+            padding: 40px 0 80px;
+            text-align: center;
         }
 
         .yantra-banner {
@@ -156,18 +144,15 @@
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
+            background-color: var(--cream);
             border-radius: var(--border-radius-lg);
             min-height: 500px;
-            max-width: 100%;
-            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: var(--shadow-strong);
-            overflow: hidden;
+            margin-bottom: 40px;
             animation: gentleFloat 8s ease-in-out infinite;
-            background-color: var(--cream);
-            margin: 0 auto;
         }
 
         @keyframes gentleFloat {
@@ -176,28 +161,24 @@
         }
 
         .yantra-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            padding: 60px 40px;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 248, 243, 0.92) 100%);
             border-radius: var(--border-radius);
+            padding: 40px;
             backdrop-filter: blur(10px);
             box-shadow: var(--shadow-medium);
-            max-width: 90%;
-            width: auto;
             text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 24px;
         }
 
         .hero-logo {
-            width: 80px;
-            height: 80px;
+            width: 64px;
+            height: 64px;
             background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d');
             background-size: contain;
             background-repeat: no-repeat;
@@ -211,57 +192,50 @@
             50% { transform: scale(1.05); }
         }
 
-        .hero-text {
-            flex: 1;
-            text-align: center;
-        }
-
-        .hero-title {
+        .hero-text h1 {
             font-family: 'Newsreader', serif;
-            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             color: var(--primary-teal);
             line-height: 1.2;
         }
 
-        .hero-tagline {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+        .hero-text p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
             color: var(--text-medium);
             font-style: italic;
-            font-weight: 400;
-            line-height: 1.4;
         }
 
-        /* Call to Action Buttons */
+        /* CTA Section */
         .cta-section {
-            padding: 60px 0;
+            padding: 40px 0;
         }
 
         .cta-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             max-width: 600px;
             margin: 0 auto;
         }
 
         .cta-btn {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 20px 32px;
-            border-radius: var(--border-radius);
+            gap: 12px;
+            padding: 16px 32px;
             text-decoration: none;
+            border-radius: var(--border-radius);
             font-weight: 600;
             font-size: 1.1rem;
             transition: var(--transition);
             box-shadow: var(--shadow-soft);
-            min-height: 64px;
         }
 
         .cta-btn.primary {
-            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-light) 100%);
+            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--accent-blue) 100%);
             color: white;
         }
 
@@ -282,8 +256,8 @@
             transform: translateY(-2px);
         }
 
-        /* Paths Preview Section */
-        .paths-preview {
+        /* Paths Section */
+        .paths-section {
             padding: 80px 0;
             background: linear-gradient(135deg, #F7FAFC 0%, var(--cream) 100%);
         }
@@ -312,18 +286,19 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 32px;
-            margin-top: 60px;
+            margin-top: 40px;
         }
 
         .path-card {
             background: white;
             border-radius: var(--border-radius);
             padding: 32px 24px;
-            text-align: center;
             box-shadow: var(--shadow-soft);
             transition: var(--transition);
+            text-align: center;
             cursor: pointer;
-            border: 2px solid transparent;
+            text-decoration: none;
+            color: inherit;
         }
 
         .path-card:hover {
@@ -331,55 +306,26 @@
             box-shadow: var(--shadow-medium);
         }
 
-        .path-card.ida {
-            border-color: #3BB5AD;
-        }
-
-        .path-card.ida:hover {
-            background: linear-gradient(135deg, #3BB5AD10 0%, #3BB5AD20 100%);
-        }
-
-        .path-card.pingala {
-            border-color: #F6A43A;
-        }
-
-        .path-card.pingala:hover {
-            background: linear-gradient(135deg, #F6A43A10 0%, #F6A43A20 100%);
-        }
-
-        .path-card.sushumna {
-            border-color: #A78BFA;
-        }
-
-        .path-card.sushumna:hover {
-            background: linear-gradient(135deg, #A78BFA10 0%, #A78BFA20 100%);
-        }
-
         .path-icon {
-            width: 60px;
-            height: 60px;
+            width: 64px;
+            height: 64px;
             margin: 0 auto 20px;
             border-radius: 50%;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
         }
 
-        .path-icon.ida {
-            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/314809d2-97cd-417f-a659-bdc9c765b332');
-        }
+        .path-card.ida .path-icon { background: linear-gradient(135deg, #3BB5AD, #2D9687); }
+        .path-card.pingala .path-icon { background: linear-gradient(135deg, #F6A43A, #E89422); }
+        .path-card.sushumna .path-icon { background: linear-gradient(135deg, #A78BFA, #8B5CF6); }
 
-        .path-icon.pingala {
-            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/e9357537-d6d8-4dc5-9ab9-f15ce6555baa');
-        }
-
-        .path-icon.sushumna {
-            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/89f564e7-b188-439b-9570-5f8775a4817c');
-        }
-
-        .path-name {
+        .path-title {
             font-family: 'Newsreader', serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 8px;
             color: var(--primary-teal);
@@ -387,17 +333,17 @@
 
         .path-subtitle {
             font-size: 0.9rem;
-            color: var(--text-light);
+            color: var(--text-medium);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .path-description {
             font-size: 0.95rem;
-            line-height: 1.5;
-            color: var(--text-medium);
+            line-height: 1.6;
+            color: var(--text-dark);
         }
 
         /* Mobile Responsive */
@@ -406,31 +352,22 @@
                 display: none;
             }
 
-            .hero {
-                padding: 100px 0 60px;
-            }
-
             .yantra-banner {
                 min-height: 400px;
-                background-size: contain;
-                margin: 0 10px;
+                margin: 0 10px 40px;
             }
 
             .yantra-content {
                 flex-direction: column;
                 text-align: center;
-                gap: 24px;
-                padding: 40px 24px;
+                gap: 16px;
+                padding: 32px 24px;
                 max-width: calc(100% - 40px);
-                width: calc(100% - 40px);
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
             }
 
             .hero-logo {
-                width: 64px;
-                height: 64px;
+                width: 48px;
+                height: 48px;
             }
 
             .cta-grid {
@@ -455,30 +392,16 @@
         @media (max-width: 480px) {
             .yantra-banner {
                 min-height: 350px;
-                margin: 0 5px;
+                margin: 0 5px 40px;
             }
 
             .yantra-content {
-                padding: 32px 20px;
+                padding: 24px 20px;
                 max-width: calc(100% - 20px);
-                width: calc(100% - 20px);
-            }
-
-            .hero-title {
-                font-size: 2.2rem;
-            }
-
-            .hero-tagline {
-                font-size: 1rem;
-            }
-
-            .cta-btn {
-                padding: 16px 24px;
-                font-size: 1rem;
             }
         }
 
-        /* PWA Install Prompt */
+        /* Install Prompt */
         .install-prompt {
             position: fixed;
             bottom: -100px;
@@ -492,8 +415,6 @@
             box-shadow: var(--shadow-strong);
             z-index: 10000;
             transition: bottom 0.3s ease;
-            z-index: 1000;
-            border: 2px solid var(--accent-blue);
         }
 
         .install-prompt.show {
@@ -508,11 +429,12 @@
         }
 
         .install-prompt-icon {
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
             background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d');
             background-size: contain;
             background-repeat: no-repeat;
+            background-position: center;
         }
 
         .install-prompt-title {
@@ -521,8 +443,8 @@
         }
 
         .install-prompt-text {
-            color: var(--text-medium);
             font-size: 0.9rem;
+            color: var(--text-medium);
             margin-bottom: 16px;
             line-height: 1.4;
         }
@@ -536,11 +458,10 @@
             flex: 1;
             padding: 10px 16px;
             border: none;
-            border-radius: 8px;
-            font-weight: 600;
+            border-radius: var(--border-radius);
+            font-weight: 500;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 0.9rem;
         }
 
         .install-btn.primary {
@@ -560,30 +481,6 @@
 
         .install-btn.secondary:hover {
             background: #EDF2F7;
-        }
-
-        /* Fix layout issues and prevent overflow */
-        .container {
-            overflow: hidden;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        /* Hide browser PWA install prompts that might interfere */
-        #chrome-install-banner,
-        .app-install-banner,
-        .pwa-install-prompt {
-            display: none !important;
-        }
-
-        /* Ensure single navigation */
-        nav:not(:first-of-type) {
-            display: none !important;
-        }
-
-        /* Prevent duplicate content */
-        .hero:not(:first-of-type) {
-            display: none !important;
         }
     </style>
 </head>
@@ -606,29 +503,29 @@
     <!-- Main Content -->
     <main>
         <div class="container">
-            <!-- Hero Section with Yantra Banner -->
+            <!-- Hero Section -->
             <section class="hero">
                 <div class="yantra-banner">
                     <div class="yantra-content">
                         <div class="hero-logo"></div>
                         <div class="hero-text">
-                            <h1 class="hero-title">Swarasync</h1>
-                            <p class="hero-tagline">You cultivate it—and it quietly cultivates you.</p>
+                            <h1>Swarasync</h1>
+                            <p>You cultivate it—and it quietly cultivates you.</p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="cta-section">
+                    <div class="cta-grid">
+                        <a href="/practice.html" class="cta-btn primary">Start Practice</a>
+                        <a href="/guide.html" class="cta-btn secondary">Learn More</a>
                     </div>
                 </div>
             </section>
 
-            <!-- Call to Action Section -->
-            <section class="cta-section">
-                <div class="cta-grid">
-                    <a href="/practice.html" class="cta-btn primary">Start Practice</a>
-                    <a href="/guide.html" class="cta-btn secondary">Learn More</a>
-                </div>
-            </section>
-
-            <!-- Paths Preview Section -->
-            <section class="paths-preview">
+            <!-- Paths Section -->
+            <section class="paths-section">
                 <h2 class="section-title">Three Sacred Paths</h2>
                 <p class="section-subtitle">
                     Discover the ancient wisdom of Shiva Swarodaya through modern practice. 
@@ -636,38 +533,35 @@
                 </p>
 
                 <div class="paths-grid">
-                    <!-- Idā Path -->
-                    <div class="path-card ida" onclick="selectPath('ida')">
-                        <div class="path-icon ida"></div>
-                        <h3 class="path-name">Idā</h3>
+                    <a href="/practice.html?path=ida" class="path-card ida">
+                        <div class="path-icon">Idā</div>
+                        <h3 class="path-title">Ida Nadi</h3>
                         <p class="path-subtitle">Left • Cooling</p>
                         <p class="path-description">
-                            Cooling, reflective energy. Perfect for calm focus, study, creating, and winding down. 
-                            Ideal for evening practice and deep work.
+                            Cool, calming energy. Perfect for study, creativity, and evening relaxation. 
+                            Activates the parasympathetic nervous system for deep focus.
                         </p>
-                    </div>
+                    </a>
 
-                    <!-- Piṅgala Path -->
-                    <div class="path-card pingala" onclick="selectPath('pingala')">
-                        <div class="path-icon pingala"></div>
-                        <h3 class="path-name">Piṅgala</h3>
+                    <a href="/practice.html?path=pingala" class="path-card pingala">
+                        <div class="path-icon">Piṅ</div>
+                        <h3 class="path-title">Pingala Nadi</h3>
                         <p class="path-subtitle">Right • Heating</p>
                         <p class="path-description">
-                            Bright, active energy. Supports action, speaking, workouts, and decisive tasks. 
-                            Perfect for morning practice and energizing activities.
+                            Warm, energizing flow. Ideal for morning activation, exercise, and active tasks. 
+                            Stimulates the sympathetic nervous system for alertness.
                         </p>
-                    </div>
+                    </a>
 
-                    <!-- Suṣumnā Path -->
-                    <div class="path-card sushumna" onclick="selectPath('sushumna')">
-                        <div class="path-icon sushumna"></div>
-                        <h3 class="path-name">Suṣumnā</h3>
+                    <a href="/practice.html?path=sushumna" class="path-card sushumna">
+                        <div class="path-icon">Su</div>
+                        <h3 class="path-title">Sushumna Nadi</h3>
                         <p class="path-subtitle">Both • Balanced</p>
                         <p class="path-description">
                             Balanced, centered energy. Supports meditation and transitions. 
                             Best for resets between activities and deep spiritual practice.
                         </p>
-                    </div>
+                    </a>
                 </div>
             </section>
         </div>
