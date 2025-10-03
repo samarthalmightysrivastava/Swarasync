@@ -1,0 +1,17 @@
+{
+  "moon": {
+    "name": "Idā",
+    "colors": ["#0E2A36", "#0F5962", "#3BB5AD", "#CFE6E2", "#E9F5F3"],
+    "description": "Cooling, reflective energy"
+  },
+  "sun": {
+    "name": "Piṅgalā", 
+    "colors": ["#2C1A00", "#8B4B00", "#F6A43A", "#FFD79A", "#FFF3E1"],
+    "description": "Bright, active energy"
+  },
+  "central": {
+    "name": "Suṣumnā",
+    "colors": ["#201532", "#5E46A6", "#A78BFA", "#EDE9FE", "#FFFFFF"],
+    "description": "Balanced, centered energy"
+  }
+}

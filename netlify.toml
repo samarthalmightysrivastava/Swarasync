@@ -1,0 +1,59 @@
+[build]
+  # Netlify will serve the public directory directly for static sites
+  publish = "public"
+  
+  # No build command needed since we're serving static files directly
+  command = ""
+
+[build.environment]
+  # Node version for any build processes (though we don't need it for static hosting)
+  NODE_VERSION = "18"
+
+[[headers]]
+  # Apply headers to all files
+  for = "/*"
+  [headers.values]
+    # Security headers
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # PWA headers
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  # Special caching for HTML files
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  # Service Worker should not be cached
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  # Manifest file headers
+  for = "/manifest.json"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=86400"
+
+# Redirects for SPA routing (in case someone navigates directly to routes)
+[[redirects]]
+  from = "/practice"
+  to = "/practice.html"
+  status = 200
+
+[[redirects]]
+  from = "/guide"
+  to = "/guide.html" 
+  status = 200
+
+# Fallback for any unmatched routes to home page
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404

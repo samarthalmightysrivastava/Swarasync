@@ -1,0 +1,53 @@
+{
+  "hero": {
+    "title": "Swarasync",
+    "subtitle": "You cultivate it—and it quietly cultivates you.",
+    "cta": {
+      "primary": "Start Game",
+      "secondary": "Swara Advisor",
+      "tertiary": "Learn"
+    }
+  },
+  "paths": {
+    "left": {
+      "name": "Idā (Left)",
+      "short": "Moon",
+      "description": "Cooling, reflective; good for study, creating, winding down."
+    },
+    "right": {
+      "name": "Piṅgalā (Right)", 
+      "short": "Sun",
+      "description": "Bright, active; good for action, speaking, workouts."
+    },
+    "both": {
+      "name": "Suṣumnā (Both)",
+      "short": "Central", 
+      "description": "Balanced, centered; good for meditation and resets."
+    }
+  },
+  "howItWorks": {
+    "steps": [
+      "Press to inhale",
+      "Release to exhale", 
+      "Tap the lights on soft ticks"
+    ],
+    "why": "Calm cadence, gentle attention, visual reward. Non-medical."
+  },
+  "safety": {
+    "caution": "Not medical advice; not a medical device.",
+    "breathHolds": "No breath holds. Stop immediately if dizzy/unwell.",
+    "medical": "Consult a physician if heart/lung conditions, pregnancy, or medical concerns; age guidance 16+ (guardian advised).",
+    "terms": "Terms of Use: license to use; no warranty; limitation of liability; jurisdiction; acceptable use.",
+    "privacy": "Privacy summary: local storage by default; no personal data unless Pro enabled; if Pro, cache license status client-side for offline."
+  },
+  "summaryMessages": [
+    "Beautiful rhythm, keep flowing.",
+    "Your breath finds its natural cadence.", 
+    "Steady presence, gentle attention.",
+    "Each round deepens the practice.",
+    "Harmony emerges from simple attention.",
+    "The breath teaches patience.",
+    "Small moments, profound shifts.",
+    "Your attention cultivates calm."
+  ]
+}

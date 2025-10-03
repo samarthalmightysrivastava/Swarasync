@@ -1,0 +1,62 @@
+{
+  "name": "Swarasync - Breath Practice App",
+  "short_name": "Swarasync",
+  "description": "You cultivate it—and it quietly cultivates you. Professional breath practice app based on Shiva Swarodaya.",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "portrait-primary",
+  "theme_color": "#A78BFA",
+  "background_color": "#f8fafc",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["health", "meditation", "wellness", "lifestyle", "productivity"],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Quick Practice",
+      "short_name": "Practice",
+      "description": "Start a quick breathing practice session",
+      "url": "/practice.html?quick=true",
+      "icons": [
+        {
+          "src": "https://cdn1.genspark.ai/user-upload-image/gemini_generated/89f564e7-b188-439b-9570-5f8775a4817c",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Guide",
+      "short_name": "Guide",
+      "description": "Learn about the three breathing paths",
+      "url": "/guide.html",
+      "icons": [
+        {
+          "src": "https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

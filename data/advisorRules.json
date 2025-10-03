@@ -1,0 +1,38 @@
+{
+  "left": {
+    "create": "yes",
+    "study": "yes",
+    "negotiate": "wait",
+    "workout": "wait",
+    "present": "wait",
+    "social": "yes",
+    "travel": "yes",
+    "meditate": "yes",
+    "purchase": "yes",
+    "rest": "yes"
+  },
+  "right": {
+    "create": "neutral",
+    "study": "neutral",
+    "negotiate": "yes",
+    "workout": "yes",
+    "present": "yes",
+    "social": "neutral",
+    "travel": "neutral",
+    "meditate": "wait",
+    "purchase": "neutral",
+    "rest": "wait"
+  },
+  "both": {
+    "create": "neutral",
+    "study": "neutral",
+    "negotiate": "wait",
+    "workout": "wait",
+    "present": "wait",
+    "social": "neutral",
+    "travel": "neutral",
+    "meditate": "yes",
+    "purchase": "wait",
+    "rest": "neutral"
+  }
+}

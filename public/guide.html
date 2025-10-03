@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0E2A36">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Swarasync - Guide & How To</title>
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Primary Colors - Enhanced for readability */
+            --primary-teal: #0E2A36;
+            --primary-teal-light: #1A3E4A;
+            --accent-blue: #3BB5AD;
+            --accent-blue-light: #5FC4BC;
+            --cream: #FFF8F3;
+            --white: #FFFFFF;
+            --text-dark: #2D3748;
+            --text-medium: #4A5568;
+            --text-light: #718096;
+            
+            /* Nadi Colors */
+            --ida-primary: #3BB5AD;
+            --ida-secondary: #0E2A36;
+            --ida-light: #E9F5F3;
+            
+            --pingala-primary: #F6A43A;
+            --pingala-secondary: #DC7633;
+            --pingala-light: #FFF3E1;
+            
+            --sushumna-primary: #A78BFA;
+            --sushumna-secondary: #7C3AED;
+            --sushumna-light: #EDE9FE;
+            
+            /* Design tokens */
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --shadow-soft: 0 4px 20px rgba(14, 42, 54, 0.1);
+            --shadow-medium: 0 8px 30px rgba(14, 42, 54, 0.15);
+            --shadow-strong: 0 20px 60px rgba(14, 42, 54, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--cream) 0%, #F7FAFC 100%);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(14, 42, 54, 0.1);
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--primary-teal);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-logo-img {
+            width: 32px;
+            height: 32px;
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            padding: 8px 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-teal);
+        }
+
+        /* Main Content */
+        main {
+            padding: 100px 0 60px;
+        }
+
+        /* Header Section */
+        .header-section {
+            text-align: center;
+            padding: 60px 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 60px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .page-title {
+            font-family: 'Newsreader', serif;
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary-teal);
+            line-height: 1.2;
+        }
+
+        .page-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            color: var(--text-medium);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Back Button */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--primary-teal);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            margin-bottom: 40px;
+        }
+
+        .back-link:hover {
+            background: var(--primary-teal-light);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .section-title {
+            font-family: 'Newsreader', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-teal);
+            margin-bottom: 24px;
+            line-height: 1.3;
+        }
+
+        .section-content {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-dark);
+        }
+
+        .section-content p {
+            margin-bottom: 16px;
+        }
+
+        .section-content ul, 
+        .section-content ol {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .section-content li {
+            margin-bottom: 8px;
+        }
+
+        .section-content strong {
+            color: var(--primary-teal);
+            font-weight: 600;
+        }
+
+        /* Nadi Cards Grid */
+        .nadi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .nadi-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+            border-left: 4px solid;
+            transition: var(--transition);
+        }
+
+        .nadi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .nadi-card.ida {
+            border-left-color: var(--ida-primary);
+            background: linear-gradient(135deg, var(--ida-light) 0%, white 100%);
+        }
+
+        .nadi-card.pingala {
+            border-left-color: var(--pingala-primary);
+            background: linear-gradient(135deg, var(--pingala-light) 0%, white 100%);
+        }
+
+        .nadi-card.sushumna {
+            border-left-color: var(--sushumna-primary);
+            background: linear-gradient(135deg, var(--sushumna-light) 0%, white 100%);
+        }
+
+        .nadi-title {
+            font-family: 'Newsreader', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nadi-title.ida { color: var(--ida-secondary); }
+        .nadi-title.pingala { color: var(--pingala-secondary); }
+        .nadi-title.sushumna { color: var(--sushumna-secondary); }
+
+        .nadi-icon {
+            width: 32px;
+            height: 32px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+        }
+
+        .nadi-icon.ida {
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/314809d2-97cd-417f-a659-bdc9c765b332');
+        }
+
+        .nadi-icon.pingala {
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/e9357537-d6d8-4dc5-9ab9-f15ce6555baa');
+        }
+
+        .nadi-icon.sushumna {
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/89f564e7-b188-439b-9570-5f8775a4817c');
+        }
+
+        .nadi-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .nadi-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--accent-blue-light) 10%, var(--accent-blue) 100%);
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 24px 0;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .highlight-box strong {
+            color: white;
+        }
+
+        /* Practice Button */
+        .practice-cta {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .practice-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--accent-blue) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition);
+        }
+
+        .practice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .header-section {
+                padding: 40px 20px;
+                margin-bottom: 40px;
+            }
+
+            .content-section {
+                padding: 24px 20px;
+                margin-bottom: 24px;
+            }
+
+            .nadi-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .nadi-card {
+                padding: 20px;
+            }
+
+            .section-content {
+                font-size: 0.95rem;
+            }
+
+            .section-content ul, 
+            .section-content ol {
+                padding-left: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 16px;
+            }
+
+            .header-section {
+                padding: 32px 16px;
+            }
+
+            .content-section {
+                padding: 20px 16px;
+            }
+
+            .back-link {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .practice-btn {
+                padding: 14px 24px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="/index.html" class="nav-logo">
+                <div class="nav-logo-img"></div>
+                <span>Swarasync</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/practice.html">Practice</a></li>
+                <li><a href="/guide.html" class="active">Guide</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Header -->
+            <div class="header-section">
+                <h1 class="page-title">Shiva Swarodaya Guide</h1>
+                <p class="page-subtitle">
+                    Master the ancient science of breath awareness through the three sacred energy channels. 
+                    Discover how breath rhythm influences your energy, focus, and well-being.
+                </p>
+            </div>
+
+            <a href="/index.html" class="back-link">← Back to Home</a>
+
+            <!-- What is Shiva Swarodaya -->
+            <div class="content-section">
+                <h2 class="section-title">What is Shiva Swarodaya?</h2>
+                <div class="section-content">
+                    <p><strong>Shiva Swarodaya</strong> is an ancient yogic science that studies the connection between breath patterns and consciousness states. The word "Swarodaya" comes from Sanskrit: "Swara" (breath/sound) and "Udaya" (rising/awareness).</p>
+                    
+                    <p>This profound system teaches that our breath naturally alternates between nostrils in predictable cycles, and each pattern influences our energy, mental state, and physical well-being. By understanding and working with these patterns, we can optimize our activities and enhance our overall quality of life.</p>
+
+                    <div class="highlight-box">
+                        <p><strong>Ancient Wisdom, Modern Application:</strong> Traditional texts describe how breath awareness can guide everything from daily activities to major life decisions. Swarasync brings this timeless knowledge into an accessible, modern practice.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Three Sacred Channels -->
+            <div class="content-section">
+                <h2 class="section-title">The Three Sacred Energy Channels (Nadis)</h2>
+                <div class="section-content">
+                    <p>According to yogic physiology, life energy (prana) flows through subtle energy channels called <strong>nadis</strong>. The three primary nadis correspond to different breathing patterns and consciousness states:</p>
+
+                    <div class="nadi-grid">
+                        <!-- Ida Nadi -->
+                        <div class="nadi-card ida">
+                            <h3 class="nadi-title ida">
+                                <div class="nadi-icon ida"></div>
+                                Idā Nadi
+                            </h3>
+                            <p class="nadi-subtitle">Left Nostril • Cooling Energy</p>
+                            <div class="nadi-description">
+                                <p><strong>Timing Pattern:</strong> 4 seconds inhale → 6 seconds exhale</p>
+                                <p><strong>Energy Quality:</strong> Cool, calming, introspective</p>
+                                <p><strong>Best For:</strong> Study, creative work, reading, meditation, evening activities</p>
+                                <p><strong>Physical Effects:</strong> Lowers heart rate, reduces body temperature, activates parasympathetic nervous system</p>
+                                <p><strong>Mental Effects:</strong> Enhances focus, promotes calm thinking, supports memory consolidation</p>
+                            </div>
+                        </div>
+
+                        <!-- Pingala Nadi -->
+                        <div class="nadi-card pingala">
+                            <h3 class="nadi-title pingala">
+                                <div class="nadi-icon pingala"></div>
+                                Piṅgala Nadi
+                            </h3>
+                            <p class="nadi-subtitle">Right Nostril • Heating Energy</p>
+                            <div class="nadi-description">
+                                <p><strong>Timing Pattern:</strong> 5 seconds inhale → 4 seconds exhale</p>
+                                <p><strong>Energy Quality:</strong> Warm, energizing, active</p>
+                                <p><strong>Best For:</strong> Exercise, presentations, decision-making, morning activities</p>
+                                <p><strong>Physical Effects:</strong> Increases heart rate, raises body temperature, activates sympathetic nervous system</p>
+                                <p><strong>Mental Effects:</strong> Boosts alertness, enhances logical thinking, improves physical performance</p>
+                            </div>
+                        </div>
+
+                        <!-- Sushumna Nadi -->
+                        <div class="nadi-card sushumna">
+                            <h3 class="nadi-title sushumna">
+                                <div class="nadi-icon sushumna"></div>
+                                Suṣumnā Nadi
+                            </h3>
+                            <p class="nadi-subtitle">Both Nostrils • Balanced Energy</p>
+                            <div class="nadi-description">
+                                <p><strong>Timing Pattern:</strong> 6 seconds inhale → 8 seconds exhale</p>
+                                <p><strong>Energy Quality:</strong> Balanced, harmonious, transcendent</p>
+                                <p><strong>Best For:</strong> Meditation, spiritual practice, transitions between activities</p>
+                                <p><strong>Physical Effects:</strong> Balances nervous system, promotes homeostasis, optimizes all bodily functions</p>
+                                <p><strong>Mental Effects:</strong> Creates mental clarity, enhances intuition, promotes inner peace</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Practice -->
+            <div class="content-section">
+                <h2 class="section-title">How to Practice with Swarasync</h2>
+                <div class="section-content">
+                    <ol>
+                        <li><strong>Choose Your Path:</strong> Select Ida (cooling), Pingala (heating), or Sushumna (balanced) based on your current needs and energy level.</li>
+                        
+                        <li><strong>Understand the Timing:</strong> Each path has specific inhale and exhale durations designed to activate the corresponding energy channel.</li>
+                        
+                        <li><strong>Press and Release:</strong> Press and hold the breathing circle during inhale, then release during exhale. Follow the visual and audio cues.</li>
+                        
+                        <li><strong>Match the Rhythm:</strong> Try to sync your natural breath with the guided timing. Don't force it—let your breath gradually adapt.</li>
+                        
+                        <li><strong>Observe the Effects:</strong> Notice how different breathing patterns affect your energy, mood, and mental clarity.</li>
+                    </ol>
+
+                    <div class="highlight-box">
+                        <p><strong>Pro Tip:</strong> Start with 6-8 rounds and gradually increase. Practice regularly to develop sensitivity to your natural breath rhythms. The harmony score helps you track your progress over time.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- When to Use Each Path -->
+            <div class="content-section">
+                <h2 class="section-title">When to Use Each Path</h2>
+                <div class="section-content">
+                    <p><strong>Morning (6-10 AM):</strong> Use Pingala to energize for the day ahead. The heating breath pattern activates your system for physical and mental activities.</p>
+
+                    <p><strong>Midday (10 AM-2 PM):</strong> Use Sushumna for balanced energy during peak activity hours. Perfect for maintaining steady focus and avoiding energy crashes.</p>
+
+                    <p><strong>Afternoon (2-6 PM):</strong> Use Ida when you need calm focus for detailed work, or Pingala for high-energy tasks and presentations.</p>
+
+                    <p><strong>Evening (6-10 PM):</strong> Use Ida to wind down and prepare for rest. The cooling breath helps transition from active to restful states.</p>
+
+                    <p><strong>Night (10 PM+):</strong> Use Sushumna for meditation or Ida for deep relaxation and sleep preparation.</p>
+                </div>
+            </div>
+
+            <!-- Benefits of Regular Practice -->
+            <div class="content-section">
+                <h2 class="section-title">Benefits of Regular Practice</h2>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>Enhanced Body Awareness:</strong> Develop sensitivity to your natural energy rhythms and breathing patterns.</li>
+                        
+                        <li><strong>Improved Focus:</strong> Learn to use specific breath patterns to optimize mental clarity for different activities.</li>
+                        
+                        <li><strong>Better Energy Management:</strong> Avoid energy crashes by aligning your activities with your natural energy cycles.</li>
+                        
+                        <li><strong>Stress Reduction:</strong> Use cooling breaths to calm anxiety and heating breaths to overcome lethargy.</li>
+                        
+                        <li><strong>Enhanced Performance:</strong> Optimize your state for specific tasks through targeted breathing practices.</li>
+                        
+                        <li><strong>Deeper Sleep:</strong> Use evening practices to naturally prepare your nervous system for restful sleep.</li>
+                        
+                        <li><strong>Emotional Balance:</strong> Regular practice helps maintain emotional equilibrium throughout daily challenges.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Safety and Guidelines -->
+            <div class="content-section">
+                <h2 class="section-title">Safety Guidelines</h2>
+                <div class="section-content">
+                    <p><strong>Never force your breath.</strong> The practice should feel natural and comfortable. If you feel dizzy or uncomfortable, return to normal breathing immediately.</p>
+                    
+                    <p><strong>Start gradually.</strong> Begin with shorter sessions (6 rounds) and increase slowly as your capacity develops.</p>
+                    
+                    <p><strong>Practice on an empty stomach.</strong> Wait at least 2 hours after eating before practicing breathing exercises.</p>
+                    
+                    <p><strong>Maintain good posture.</strong> Sit or stand with your spine straight to allow optimal breath flow.</p>
+                    
+                    <p><strong>Consult a healthcare provider</strong> if you have respiratory conditions, heart problems, or are pregnant.</p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="practice-cta">
+                <a href="/practice.html" class="practice-btn">
+                    Start Your Practice →
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

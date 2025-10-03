@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0E2A36">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Swarasync - You cultivate it—and it quietly cultivates you. Professional breath practice app based on Shiva Swarodaya.">
+    <title>Swarasync - Breath Practice App</title>
+    
+    <!-- PWA manifest and icons -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d" type="image/png">
+    <link rel="apple-touch-icon" href="https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Primary Colors - Enhanced for readability */
+            --primary-teal: #0E2A36;
+            --primary-teal-light: #1A3E4A;
+            --accent-blue: #3BB5AD;
+            --accent-blue-light: #5FC4BC;
+            --cream: #FFF8F3;
+            --white: #FFFFFF;
+            --text-dark: #2D3748;
+            --text-medium: #4A5568;
+            --text-light: #718096;
+            
+            /* Design tokens */
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --shadow-soft: 0 4px 20px rgba(14, 42, 54, 0.1);
+            --shadow-medium: 0 8px 30px rgba(14, 42, 54, 0.15);
+            --shadow-strong: 0 20px 60px rgba(14, 42, 54, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--cream) 0%, #F7FAFC 100%);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(14, 42, 54, 0.1);
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--primary-teal);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-logo-img {
+            width: 32px;
+            height: 32px;
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            padding: 8px 0;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-teal);
+        }
+
+        /* Hero Section with Banner */
+        .hero {
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .yantra-banner {
+            position: relative;
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/e95bb77d-1286-4b21-a831-191d58503989');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: var(--border-radius-lg);
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            box-shadow: var(--shadow-strong);
+            overflow: hidden;
+            animation: gentleFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .yantra-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 60px;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 248, 243, 0.9) 100%);
+            border-radius: var(--border-radius);
+            margin: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .hero-logo {
+            width: 80px;
+            height: 80px;
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: breathe 6s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-family: 'Newsreader', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--primary-teal);
+            line-height: 1.2;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--text-medium);
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        /* Call to Action Buttons */
+        .cta-section {
+            padding: 60px 0;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 32px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-soft);
+            min-height: 64px;
+        }
+
+        .cta-btn.primary {
+            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-light) 100%);
+            color: white;
+        }
+
+        .cta-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cta-btn.secondary {
+            background: white;
+            color: var(--primary-teal);
+            border: 2px solid var(--accent-blue);
+        }
+
+        .cta-btn.secondary:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Paths Preview Section */
+        .paths-preview {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #F7FAFC 0%, var(--cream) 100%);
+        }
+
+        .section-title {
+            font-family: 'Newsreader', serif;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-teal);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .paths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .path-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .path-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .path-card.ida {
+            border-color: #3BB5AD;
+        }
+
+        .path-card.ida:hover {
+            background: linear-gradient(135deg, #3BB5AD10 0%, #3BB5AD20 100%);
+        }
+
+        .path-card.pingala {
+            border-color: #F6A43A;
+        }
+
+        .path-card.pingala:hover {
+            background: linear-gradient(135deg, #F6A43A10 0%, #F6A43A20 100%);
+        }
+
+        .path-card.sushumna {
+            border-color: #A78BFA;
+        }
+
+        .path-card.sushumna:hover {
+            background: linear-gradient(135deg, #A78BFA10 0%, #A78BFA20 100%);
+        }
+
+        .path-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .path-icon.ida {
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/314809d2-97cd-417f-a659-bdc9c765b332');
+        }
+
+        .path-icon.pingala {
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/e9357537-d6d8-4dc5-9ab9-f15ce6555baa');
+        }
+
+        .path-icon.sushumna {
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/89f564e7-b188-439b-9570-5f8775a4817c');
+        }
+
+        .path-name {
+            font-family: 'Newsreader', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-teal);
+        }
+
+        .path-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .path-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-medium);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .yantra-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+                padding: 40px 24px;
+                margin: 20px;
+            }
+
+            .hero-logo {
+                width: 64px;
+                height: 64px;
+            }
+
+            .cta-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .paths-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .path-card {
+                padding: 24px 20px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .yantra-content {
+                padding: 32px 20px;
+                margin: 16px;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-tagline {
+                font-size: 1rem;
+            }
+
+            .cta-btn {
+                padding: 16px 24px;
+                font-size: 1rem;
+            }
+        }
+
+        /* PWA Install Prompt */
+        .install-prompt {
+            position: fixed;
+            bottom: -100px;
+            left: 20px;
+            right: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow-strong);
+            transition: bottom 0.3s ease;
+            z-index: 1000;
+            border: 2px solid var(--accent-blue);
+        }
+
+        .install-prompt.show {
+            bottom: 20px;
+        }
+
+        .install-prompt-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .install-prompt-icon {
+            width: 32px;
+            height: 32px;
+            background-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/71d67e44-2425-446e-b369-265218decd3d');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .install-prompt-title {
+            font-weight: 600;
+            color: var(--primary-teal);
+        }
+
+        .install-prompt-text {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .install-prompt-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .install-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .install-btn.primary {
+            background: var(--primary-teal);
+            color: white;
+        }
+
+        .install-btn.primary:hover {
+            background: var(--primary-teal-light);
+        }
+
+        .install-btn.secondary {
+            background: #F7FAFC;
+            color: var(--text-medium);
+            border: 1px solid #E2E8F0;
+        }
+
+        .install-btn.secondary:hover {
+            background: #EDF2F7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <div class="nav-logo-img"></div>
+                <span>Swarasync</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/practice.html">Practice</a></li>
+                <li><a href="/guide.html">Guide</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero Section with Yantra Banner -->
+            <section class="hero">
+                <div class="yantra-banner">
+                    <div class="yantra-content">
+                        <div class="hero-logo"></div>
+                        <div class="hero-text">
+                            <h1 class="hero-title">Swarasync</h1>
+                            <p class="hero-tagline">You cultivate it—and it quietly cultivates you.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action Section -->
+            <section class="cta-section">
+                <div class="cta-grid">
+                    <a href="/practice.html" class="cta-btn primary">Start Practice</a>
+                    <a href="/guide.html" class="cta-btn secondary">Learn More</a>
+                </div>
+            </section>
+
+            <!-- Paths Preview Section -->
+            <section class="paths-preview">
+                <h2 class="section-title">Three Sacred Paths</h2>
+                <p class="section-subtitle">
+                    Discover the ancient wisdom of Shiva Swarodaya through modern practice. 
+                    Choose the path that matches your current state and energy needs.
+                </p>
+
+                <div class="paths-grid">
+                    <!-- Idā Path -->
+                    <div class="path-card ida" onclick="selectPath('ida')">
+                        <div class="path-icon ida"></div>
+                        <h3 class="path-name">Idā</h3>
+                        <p class="path-subtitle">Left • Cooling</p>
+                        <p class="path-description">
+                            Cooling, reflective energy. Perfect for calm focus, study, creating, and winding down. 
+                            Ideal for evening practice and deep work.
+                        </p>
+                    </div>
+
+                    <!-- Piṅgala Path -->
+                    <div class="path-card pingala" onclick="selectPath('pingala')">
+                        <div class="path-icon pingala"></div>
+                        <h3 class="path-name">Piṅgala</h3>
+                        <p class="path-subtitle">Right • Heating</p>
+                        <p class="path-description">
+                            Bright, active energy. Supports action, speaking, workouts, and decisive tasks. 
+                            Perfect for morning practice and energizing activities.
+                        </p>
+                    </div>
+
+                    <!-- Suṣumnā Path -->
+                    <div class="path-card sushumna" onclick="selectPath('sushumna')">
+                        <div class="path-icon sushumna"></div>
+                        <h3 class="path-name">Suṣumnā</h3>
+                        <p class="path-subtitle">Both • Balanced</p>
+                        <p class="path-description">
+                            Balanced, centered energy. Supports meditation and transitions. 
+                            Best for resets between activities and deep spiritual practice.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- PWA Install Prompt -->
+    <div id="installPrompt" class="install-prompt">
+        <div class="install-prompt-header">
+            <div class="install-prompt-icon"></div>
+            <span class="install-prompt-title">Install Swarasync</span>
+        </div>
+        <p class="install-prompt-text">
+            Install Swarasync for a calm, offline breathing practice experience on your device.
+        </p>
+        <div class="install-prompt-actions">
+            <button class="install-btn primary" onclick="installApp()">Install</button>
+            <button class="install-btn secondary" onclick="dismissInstall()">Not now</button>
+        </div>
+    </div>
+
+    <script>
+        // PWA Install functionality
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install prompt after 3 seconds
+            setTimeout(() => {
+                if (!localStorage.getItem('installDismissed')) {
+                    document.getElementById('installPrompt').classList.add('show');
+                }
+            }, 3000);
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    deferredPrompt = null;
+                    document.getElementById('installPrompt').classList.remove('show');
+                });
+            }
+        }
+
+        function dismissInstall() {
+            document.getElementById('installPrompt').classList.remove('show');
+            localStorage.setItem('installDismissed', 'true');
+        }
+
+        // Path selection
+        function selectPath(path) {
+            localStorage.setItem('selectedPath', path);
+            window.location.href = '/practice.html?path=' + path;
+        }
+
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then((registration) => {
+                    console.log('SW registered: ', registration);
+                })
+                .catch((registrationError) => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+        }
+    </script>
+</body>
+</html>

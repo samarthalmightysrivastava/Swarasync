@@ -1,0 +1,51 @@
+{
+  "timing": {
+    "inhaleMin": 5.0,
+    "inhaleMax": 6.0,
+    "exhaleMin": 7.0,
+    "exhaleMax": 8.0,
+    "perfectWindow": 300,
+    "tapWindow": 120,
+    "tickInterval": 1000
+  },
+  "difficulty": {
+    "initialTolerance": 300,
+    "minTolerance": 160,
+    "maxTolerance": 600,
+    "toleranceStep": 40,
+    "initialNodes": 4,
+    "minNodes": 3,
+    "maxNodes": 7,
+    "adaptThreshold": {
+      "increase": 90,
+      "decrease": 70
+    },
+    "adaptRounds": 3,
+    "ewmaAlpha": 0.3
+  },
+  "scoring": {
+    "timingWeight": 0.5,
+    "sequenceWeight": 0.3,
+    "consistencyWeight": 0.2
+  },
+  "performance": {
+    "maxPixelRatio": 1.5,
+    "minFps": 45,
+    "baseCanvasSize": 800
+  },
+  "audio": {
+    "masterVolume": 0.3,
+    "droneFreq": 110,
+    "droneDetune": 3,
+    "lfoRate": 0.1,
+    "tickDuration": 0.1,
+    "bellDuration": 0.5
+  },
+  "visual": {
+    "mandalaPetals": 12,
+    "maxParticles": 100,
+    "ringThickness": 8,
+    "nodeSize": 24,
+    "glowIntensity": 0.8
+  }
+}
