@@ -3,7 +3,8 @@
 ## 🧘‍♀️ Project Overview
 **Swarasync** is a modern Progressive Web App (PWA) based on the ancient Shiva Swarodaya breathing techniques. It provides guided breath practice through three sacred energy channels (nadis) with interactive visual feedback and detailed timing instructions.
 
-**Live Demo**: [https://swarasync.netlify.app](https://swarasync.netlify.app) *(Will be updated after deployment)*
+**Live Demo**: *(Deploy to Netlify for production URL)*
+**Development Preview**: https://3000-i7grkd9sf5yeu3rk3ze8s-6532622b.e2b.dev/
 
 **Tagline**: *"You cultivate it—and it quietly cultivates you."*
 
