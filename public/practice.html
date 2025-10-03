@@ -109,6 +109,77 @@
         .path-title.loaded {
             opacity: 1;
         }
+        
+        /* Nadi Switching Buttons */
+        .nadi-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+        
+        .nadi-btn {
+            padding: 8px 16px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            background: rgba(139, 92, 246, 0.05);
+            color: var(--sushumna-primary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nadi-btn:hover {
+            background: rgba(139, 92, 246, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .nadi-btn.active {
+            background: var(--sushumna-primary);
+            color: white;
+            border-color: var(--sushumna-secondary);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+        
+        .nadi-btn.ida {
+            border-color: rgba(59, 181, 173, 0.3);
+            background: rgba(59, 181, 173, 0.05);
+            color: var(--ida-primary);
+        }
+        
+        .nadi-btn.ida:hover {
+            background: rgba(59, 181, 173, 0.1);
+        }
+        
+        .nadi-btn.ida.active {
+            background: var(--ida-primary);
+            color: white;
+            border-color: var(--ida-secondary);
+            box-shadow: 0 4px 12px rgba(59, 181, 173, 0.3);
+        }
+        
+        .nadi-btn.pingala {
+            border-color: rgba(246, 164, 58, 0.3);
+            background: rgba(246, 164, 58, 0.05);
+            color: var(--pingala-primary);
+        }
+        
+        .nadi-btn.pingala:hover {
+            background: rgba(246, 164, 58, 0.1);
+        }
+        
+        .nadi-btn.pingala.active {
+            background: var(--pingala-primary);
+            color: white;
+            border-color: var(--pingala-secondary);
+            box-shadow: 0 4px 12px rgba(246, 164, 58, 0.3);
+        }
 
         .path-subtitle {
             font-size: 0.8rem;
@@ -497,6 +568,20 @@
         }
 
         /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nadi-switcher {
+                gap: 6px;
+                margin: 16px 0;
+                padding: 0 16px;
+            }
+            
+            .nadi-btn {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+                gap: 4px;
+            }
+        }
+        
         @media (max-width: 480px) {
             .breath-circle {
                 width: 240px;
@@ -566,6 +651,19 @@
                 <div class="path-title" id="pathTitle">Loading...</div>
                 <div class="path-subtitle" id="pathSubtitle">Initializing...</div>
             </div>
+        </div>
+
+        <!-- Nadi Switcher -->
+        <div class="nadi-switcher">
+            <a href="/practice.html?path=ida" class="nadi-btn ida" id="idaBtn">
+                <span>🌙</span> Idā
+            </a>
+            <a href="/practice.html?path=pingala" class="nadi-btn pingala" id="pingalaBtn">
+                <span>☀️</span> Piṅgala
+            </a>
+            <a href="/practice.html?path=sushumna" class="nadi-btn sushumna" id="sushumnaBtn">
+                <span>⚡</span> Suṣumnā
+            </a>
         </div>
 
         <!-- Breathing Pattern Info -->
@@ -942,6 +1040,9 @@
                     document.documentElement.style.setProperty('--current-primary', '#8B5CF6');
             }
             
+            // Update active button
+            updateActiveButton(path);
+            
             // Show content after updating
             pathTitle.classList.add('loaded');
             patternTitle.classList.add('loaded');
@@ -977,6 +1078,18 @@
                     exhaleDuration.textContent = `${pattern.exhale}s`;
                     effectTitle.textContent = 'Balancing & Harmonizing Effect';
                     patternDescription.textContent = 'This balanced 6:8 breathing ratio harmonizes both nervous systems, creating inner equilibrium. Perfect for meditation, reducing anxiety, and transitioning between activities. Promotes deep relaxation and mental clarity.';
+            }
+        }
+        
+        // Update Active Button
+        function updateActiveButton(path) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.nadi-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to current path button
+            const activeBtn = document.getElementById(path + 'Btn');
+            if (activeBtn) {
+                activeBtn.classList.add('active');
             }
         }
 

@@ -670,6 +670,31 @@
             localStorage.setItem('selectedPath', path);
             window.location.href = '/practice.html?path=' + path;
         }
+        
+        // Add click handlers to path cards as backup
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Setting up path card click handlers...');
+            
+            document.querySelectorAll('.path-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default link behavior
+                    
+                    const href = this.getAttribute('href');
+                    console.log('Path card clicked, href:', href);
+                    
+                    if (href.includes('path=ida')) {
+                        console.log('Navigating to IDA');
+                        selectPath('ida');
+                    } else if (href.includes('path=pingala')) {
+                        console.log('Navigating to PINGALA');
+                        selectPath('pingala');
+                    } else if (href.includes('path=sushumna')) {
+                        console.log('Navigating to SUSHUMNA');
+                        selectPath('sushumna');
+                    }
+                });
+            });
+        });
 
         // Register service worker
         if ('serviceWorker' in navigator) {
