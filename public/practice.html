@@ -13,29 +13,49 @@
     
     <style>
         :root {
-            --primary-teal: #0E2A36;
-            --primary-teal-light: #1A3E4A;
-            --accent-blue: #3BB5AD;
-            --accent-blue-light: #5FC4BC;
-            --cream: #FFF8F3;
+            /* Base Colors */
             --white: #FFFFFF;
-            --text-dark: #2D3748;
-            --text-medium: #4A5568;
-            --text-light: #718096;
+            --cream: #FFF8F3;
             
+            /* Dynamic Theme Colors - Updated by JavaScript */
+            --current-bg-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/881fffaa-dee1-4f92-ba6e-976668c96d41');
+            --current-primary: #8B5CF6;
+            --current-secondary: #A78BFA;
+            --current-text: #2D3748;
+            --current-text-light: #718096;
+            --current-text-glow: rgba(139, 92, 246, 0.3);
+            
+            /* Ida (Cooling) Colors */
+            --ida-bg-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/d726aef4-41a8-43b8-9d69-f2124b0cc4ef');
+            --ida-primary: #2E86AB;
+            --ida-secondary: #A2D2FF;
+            --ida-text: #1B4C68;
+            --ida-text-light: #4A90A4;
+            --ida-glow: rgba(46, 134, 171, 0.4);
+            
+            /* Pingala (Energizing) Colors */
+            --pingala-bg-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/1a64b8f6-125a-49fd-bd25-76d746d4dc62');
+            --pingala-primary: #FF6B35;
+            --pingala-secondary: #FFAA80;
+            --pingala-text: #8B2C0B;
+            --pingala-text-light: #B85429;
+            --pingala-glow: rgba(255, 107, 53, 0.4);
+            
+            /* Sushumna (Balanced) Colors */
+            --sushumna-bg-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/881fffaa-dee1-4f92-ba6e-976668c96d41');
             --sushumna-primary: #8B5CF6;
-            --sushumna-secondary: #A78BFA;
-            --ida-primary: #3BB5AD;
-            --ida-secondary: #5FC4BC;
-            --pingala-primary: #F6A43A;
-            --pingala-secondary: #FCD34D;
+            --sushumna-secondary: #C4B5FD;
+            --sushumna-text: #4C1D95;
+            --sushumna-text-light: #7C3AED;
+            --sushumna-glow: rgba(139, 92, 246, 0.4);
             
+            /* Design System */
             --border-radius: 16px;
             --border-radius-lg: 24px;
-            --shadow-soft: 0 4px 20px rgba(14, 42, 54, 0.1);
-            --shadow-medium: 0 8px 30px rgba(14, 42, 54, 0.15);
-            --shadow-strong: 0 20px 60px rgba(14, 42, 54, 0.2);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.12);
+            --shadow-glow: 0 0 40px var(--current-text-glow);
+            --transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            --breath-transition: all 4s cubic-bezier(0.4, 0, 0.6, 1);
         }
 
         * { 
@@ -47,12 +67,15 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: var(--text-dark);
-            background: linear-gradient(135deg, #F0F8FF 0%, #E8F5F3 100%);
+            color: var(--current-text);
+            background: var(--current-bg-image) center/cover no-repeat fixed,
+                        linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.8) 100%);
+            background-blend-mode: overlay;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            transition: var(--transition);
         }
 
         .container {
@@ -351,53 +374,97 @@
         }
 
         .breath-circle {
-            width: 280px;
-            height: 280px;
+            width: 320px;
+            height: 320px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.95);
-            border: 4px solid rgba(139, 92, 246, 0.4);
+            background: radial-gradient(
+                circle at 30% 30%, 
+                rgba(255, 255, 255, 0.95) 0%, 
+                rgba(255, 255, 255, 0.85) 40%,
+                rgba(255, 255, 255, 0.75) 100%
+            );
+            border: 6px solid var(--current-primary);
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
             position: relative;
             box-shadow: 
-                0 0 30px rgba(139, 92, 246, 0.2),
-                0 0 60px rgba(139, 92, 246, 0.1),
-                inset 0 0 20px rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            transition: var(--transition);
+                var(--shadow-soft),
+                0 0 60px var(--current-glow),
+                inset 0 8px 32px rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            transition: var(--breath-transition);
+            transform: scale(1);
         }
 
-        .breath-circle.active {
-            border-color: var(--sushumna-primary);
+        .breath-circle.inhaling {
+            transform: scale(0.85);
+            border-color: var(--current-secondary);
             box-shadow: 
-                0 0 40px rgba(139, 92, 246, 0.4),
-                0 0 80px rgba(139, 92, 246, 0.2),
-                inset 0 0 20px rgba(255, 255, 255, 0.8);
+                var(--shadow-glow),
+                0 0 80px var(--current-glow),
+                inset 0 12px 40px rgba(255, 255, 255, 0.8);
+            background: radial-gradient(
+                circle at 30% 30%, 
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(255, 255, 255, 0.9) 40%,
+                var(--current-secondary) 100%
+            );
+        }
+
+        .breath-circle.exhaling {
+            transform: scale(1.15);
+            border-color: var(--current-primary);
+            box-shadow: 
+                0 0 100px var(--current-glow),
+                0 0 40px rgba(255, 255, 255, 0.5),
+                inset 0 4px 20px rgba(255, 255, 255, 0.4);
+            background: radial-gradient(
+                circle at 50% 50%, 
+                var(--current-primary) 0%, 
+                rgba(255, 255, 255, 0.9) 60%,
+                rgba(255, 255, 255, 0.8) 100%
+            );
+        }
+
+        .breath-circle.paused {
+            transform: scale(1);
+            border-color: var(--current-text-light);
+            box-shadow: var(--shadow-soft);
+            background: radial-gradient(
+                circle at 30% 30%, 
+                rgba(255, 255, 255, 0.95) 0%, 
+                rgba(255, 255, 255, 0.85) 100%
+            );
         }
 
         .breath-content {
             text-align: center;
-            color: var(--text-dark);
+            color: var(--current-text);
             z-index: 10;
-            width: 200px;
-            height: 200px;
+            width: 240px;
+            height: 240px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
+            gap: 12px;
+            transition: var(--transition);
         }
 
         .breath-text {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 8px;
+            line-height: 1.2;
             font-family: 'Inter', sans-serif;
-            max-width: 160px;
+            max-width: 180px;
             word-wrap: break-word;
             text-align: center;
+            color: var(--current-text);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
         }
 
         .breath-icon {
@@ -584,13 +651,13 @@
         
         @media (max-width: 480px) {
             .breath-circle {
-                width: 240px;
-                height: 240px;
+                width: 280px;
+                height: 280px;
             }
 
             .breath-content {
-                width: 160px;
-                height: 160px;
+                width: 200px;
+                height: 200px;
             }
 
             .breath-text {
@@ -620,13 +687,13 @@
         /* Extra small devices */
         @media (max-width: 360px) {
             .breath-circle {
-                width: 220px;
-                height: 220px;
+                width: 260px;
+                height: 260px;
             }
 
             .breath-content {
-                width: 140px;
-                height: 140px;
+                width: 180px;
+                height: 180px;
             }
 
             .breath-text {
@@ -748,16 +815,14 @@
         // Breathing State with Correct Nadi Patterns
         let breathingState = {
             isActive: false,
-            phase: 'ready',
+            phase: 'ready',         // 'ready', 'inhaling', 'exhaling'
             round: 1,
             maxRounds: 8,
-            inhaleTime: 6, // Default Sushumna
-            exhaleTime: 8,  // Default Sushumna  
+            inhaleTime: 6,          // Default Sushumna
+            exhaleTime: 8,          // Default Sushumna  
             currentTimer: 0,
             phaseTimer: null,
             intervalTimer: null,
-            isHolding: false,
-            holdStartTime: 0,
             currentPath: 'sushumna'
         };
         
@@ -768,71 +833,151 @@
             sushumna: { inhale: 6, exhale: 8 }    // Both • Balanced
         };
 
-        // Touch/Mouse Event Handlers for Hold Functionality
-        let touchStartTime = 0;
-        let isPressed = false;
-        
-        function setupTouchEvents() {
+        // Simple Tap Event Handler for Elegant Breathing
+        function setupTapEvents() {
             const container = document.getElementById('breathingContainer');
             
-            // Mouse events
-            container.addEventListener('mousedown', handlePressStart);
-            container.addEventListener('mouseup', handlePressEnd);
-            container.addEventListener('mouseleave', handlePressEnd);
-            
-            // Touch events
-            container.addEventListener('touchstart', handlePressStart, { passive: false });
-            container.addEventListener('touchend', handlePressEnd, { passive: false });
-            container.addEventListener('touchcancel', handlePressEnd, { passive: false });
+            // Single tap to start/continue breathing cycle
+            container.addEventListener('click', handleTap);
+            container.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                handleTap(e);
+            });
         }
         
-        function handlePressStart(e) {
+        function handleTap(e) {
             e.preventDefault();
             
             if (!breathingState.isActive) {
                 startBreathing();
+            } else if (breathingState.phase === 'ready') {
+                startNextRound();
+            }
+        }
+        
+        function startNextRound() {
+            if (breathingState.round > breathingState.maxRounds) {
+                endSession();
                 return;
             }
             
-            isPressed = true;
-            touchStartTime = Date.now();
-            breathingState.isHolding = true;
-            breathingState.holdStartTime = Date.now();
-            
-            // Visual feedback for hold
-            document.getElementById('breathCircle').style.transform = 'scale(0.95)';
+            // Start inhale phase
+            breathingState.phase = 'inhaling';
+            startInhalePhase();
         }
         
-        function handlePressEnd(e) {
-            e.preventDefault();
+        function startInhalePhase() {
+            const breathCircle = document.getElementById('breathCircle');
+            const breathText = document.getElementById('breathText');
+            const breathIcon = document.getElementById('breathIcon');
+            const breathCounter = document.getElementById('breathCounter');
             
-            if (!isPressed) return;
+            // Update UI for inhaling
+            breathText.textContent = 'Inhaling...';
+            breathIcon.textContent = '🌙';
+            breathCircle.className = 'breath-circle inhaling';
             
-            isPressed = false;
-            breathingState.isHolding = false;
+            // Play soft sound effect
+            playBreathSound('inhale');
             
-            // Remove visual feedback
-            document.getElementById('breathCircle').style.transform = 'scale(1)';
+            // Start inhale timer
+            breathingState.currentTimer = breathingState.inhaleTime;
+            startPhaseTimer(() => {
+                startExhalePhase();
+            });
+        }
+        
+        function startExhalePhase() {
+            const breathCircle = document.getElementById('breathCircle');
+            const breathText = document.getElementById('breathText');
+            const breathIcon = document.getElementById('breathIcon');
             
-            // If released before cycle complete, restart current phase
-            if (breathingState.isActive && breathingState.phase !== 'ready') {
-                // Clear current timer
-                if (breathingState.intervalTimer) {
-                    clearTimeout(breathingState.intervalTimer);
-                }
+            // Update UI for exhaling
+            breathText.textContent = 'Exhaling...';
+            breathIcon.textContent = '🌬️';
+            breathCircle.className = 'breath-circle exhaling';
+            
+            // Play soft sound effect
+            playBreathSound('exhale');
+            
+            // Start exhale timer
+            breathingState.currentTimer = breathingState.exhaleTime;
+            startPhaseTimer(() => {
+                completeRound();
+            });
+        }
+        
+        function completeRound() {
+            const breathCircle = document.getElementById('breathCircle');
+            const breathText = document.getElementById('breathText');
+            const breathIcon = document.getElementById('breathIcon');
+            
+            breathingState.round++;
+            breathingState.phase = 'ready';
+            
+            // Update UI for next round
+            breathCircle.className = 'breath-circle paused';
+            
+            if (breathingState.round > breathingState.maxRounds) {
+                breathText.textContent = 'Complete!';
+                breathIcon.textContent = '🎉';
+                setTimeout(() => endSession(), 2000);
+            } else {
+                breathText.textContent = 'Tap for Next Round';
+                breathIcon.textContent = '✨';
+            }
+            
+            updateUI();
+        }
+        
+        function playBreathSound(phase) {
+            // Create soft audio feedback using Web Audio API
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
                 
-                // Show restart message and restart the SAME phase
-                document.getElementById('breathCounter').textContent = 'Restarting phase...';
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
                 
-                setTimeout(() => {
-                    if (breathingState.isActive) {
-                        // Restart the exact same phase, don't advance
-                        nextPhase();
-                    }
-                }, 1000);
+                // Different frequencies for inhale/exhale
+                oscillator.frequency.value = phase === 'inhale' ? 220 : 165; // A3 / E3
+                oscillator.type = 'sine';
+                
+                // Soft, brief tone
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.1);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                // Fallback: no sound if Web Audio API fails
+                console.log('Audio not available');
             }
         }
         
+        function startPhaseTimer(callback) {
+            const breathCounter = document.getElementById('breathCounter');
+            
+            const updateTimer = () => {
+                if (!breathingState.isActive) return;
+                
+                breathCounter.textContent = `${breathingState.currentTimer}s`;
+                
+                if (breathingState.currentTimer <= 0) {
+                    breathCounter.textContent = '';
+                    callback();
+                    return;
+                }
+                
+                breathingState.currentTimer--;
+                breathingState.intervalTimer = setTimeout(updateTimer, 1000);
+            };
+            
+            updateTimer();
+        }
+
         function getCurrentPhaseDuration() {
             switch(breathingState.phase) {
                 case 'inhale': return breathingState.inhaleTime;
@@ -855,19 +1000,14 @@
             breathingState.phase = 'ready';
             breathingState.round = 1;
             
-            document.getElementById('breathCircle').classList.add('active');
+            const breathCircle = document.getElementById('breathCircle');
+            const breathText = document.getElementById('breathText');
+            const breathIcon = document.getElementById('breathIcon');
             
-            // Ready phase
-            document.getElementById('breathText').textContent = 'Tap to Start';
-            document.getElementById('breathIcon').textContent = '🧘';
-            document.getElementById('breathCounter').textContent = '';
-            
-            setTimeout(() => {
-                if (breathingState.isActive) {
-                    breathingState.phase = 'inhale';
-                    nextPhase();
-                }
-            }, 3000);
+            // Initial ready state
+            breathCircle.className = 'breath-circle paused';
+            breathText.textContent = 'Tap to Begin';
+            breathIcon.textContent = '🧘';
             
             updateUI();
         }
@@ -947,19 +1087,20 @@
         function stopBreathing() {
             breathingState.isActive = false;
             breathingState.phase = 'ready';
-            breathingState.isHolding = false;
-            isPressed = false;
             
             if (breathingState.intervalTimer) {
                 clearTimeout(breathingState.intervalTimer);
             }
             
-            document.getElementById('breathCircle').classList.remove('active');
-            document.getElementById('breathCircle').style.transform = 'scale(1)';
-            document.getElementById('breathProgress').className = 'breath-progress';
-            document.getElementById('breathText').textContent = 'Tap to Start';
-            document.getElementById('breathIcon').textContent = '🧘';
-            document.getElementById('breathCounter').textContent = '';
+            const breathCircle = document.getElementById('breathCircle');
+            const breathText = document.getElementById('breathText');
+            const breathIcon = document.getElementById('breathIcon');
+            const breathCounter = document.getElementById('breathCounter');
+            
+            breathCircle.className = 'breath-circle paused';
+            breathText.textContent = 'Tap to Start';
+            breathIcon.textContent = '🧘';
+            breathCounter.textContent = '';
             
             updateUI();
         }
@@ -1024,20 +1165,35 @@
                 case 'ida':
                     pathTitle.textContent = 'Idā Nadi';
                     pathSubtitle.textContent = 'Left • Cooling';
-                    breathCircle.style.borderColor = 'rgba(59, 181, 173, 0.4)';
-                    document.documentElement.style.setProperty('--current-primary', '#3BB5AD');
+                    // Set Ida theme colors
+                    document.documentElement.style.setProperty('--current-bg-image', 'var(--ida-bg-image)');
+                    document.documentElement.style.setProperty('--current-primary', 'var(--ida-primary)');
+                    document.documentElement.style.setProperty('--current-secondary', 'var(--ida-secondary)');
+                    document.documentElement.style.setProperty('--current-text', 'var(--ida-text)');
+                    document.documentElement.style.setProperty('--current-text-light', 'var(--ida-text-light)');
+                    document.documentElement.style.setProperty('--current-glow', 'var(--ida-glow)');
                     break;
                 case 'pingala':
                     pathTitle.textContent = 'Piṅgala Nadi';
                     pathSubtitle.textContent = 'Right • Heating';
-                    breathCircle.style.borderColor = 'rgba(246, 164, 58, 0.4)';
-                    document.documentElement.style.setProperty('--current-primary', '#F6A43A');
+                    // Set Pingala theme colors
+                    document.documentElement.style.setProperty('--current-bg-image', 'var(--pingala-bg-image)');
+                    document.documentElement.style.setProperty('--current-primary', 'var(--pingala-primary)');
+                    document.documentElement.style.setProperty('--current-secondary', 'var(--pingala-secondary)');
+                    document.documentElement.style.setProperty('--current-text', 'var(--pingala-text)');
+                    document.documentElement.style.setProperty('--current-text-light', 'var(--pingala-text-light)');
+                    document.documentElement.style.setProperty('--current-glow', 'var(--pingala-glow)');
                     break;
                 default:
                     pathTitle.textContent = 'Suṣumnā Nadi';
                     pathSubtitle.textContent = 'Both • Balanced';
-                    breathCircle.style.borderColor = 'rgba(139, 92, 246, 0.4)';
-                    document.documentElement.style.setProperty('--current-primary', '#8B5CF6');
+                    // Set Sushumna theme colors
+                    document.documentElement.style.setProperty('--current-bg-image', 'var(--sushumna-bg-image)');
+                    document.documentElement.style.setProperty('--current-primary', 'var(--sushumna-primary)');
+                    document.documentElement.style.setProperty('--current-secondary', 'var(--sushumna-secondary)');
+                    document.documentElement.style.setProperty('--current-text', 'var(--sushumna-text)');
+                    document.documentElement.style.setProperty('--current-text-light', 'var(--sushumna-text-light)');
+                    document.documentElement.style.setProperty('--current-glow', 'var(--sushumna-glow)');
             }
             
             // Update active button
@@ -1094,7 +1250,7 @@
         }
 
         // Initialize
-        setupTouchEvents();
+        setupTapEvents();
         detectPath();
         updateUI();
     </script>
