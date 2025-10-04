@@ -26,11 +26,13 @@
    - Best for meditation and spiritual practice
 
 ### 🎮 **Interactive Practice Interface**
-- **Press & Release Mechanics** - Touch and hold for inhale, release for exhale
-- **Visual Timer Feedback** - Real-time breathing rhythm guidance
+- **Tap-Based Breathing System** - Simple tap to start automatic breath cycles with lung-like animations
+- **Dynamic Color Theming** - Each nadi mode displays unique color palettes (blue, orange, purple)
+- **Ultra HD Background Images** - AI-generated nadi-specific meditation backgrounds
+- **Visual Timer Feedback** - Real-time breathing rhythm guidance with glow effects
 - **Harmony Scoring System** - Track your breath synchronization accuracy
-- **Audio Cues** - Soft tick sounds with Web Audio API
-- **Haptic Feedback** - Enhanced mobile experience
+- **Audio Cues** - Soft breath sounds with Web Audio API frequencies
+- **Auto Inhale/Exhale Instructions** - Clear timing guidance for each breathing phase
 
 ### 📱 **Mobile-First Design**
 - **Perfect Responsiveness** - Optimized for phones, tablets, and desktops
@@ -107,11 +109,12 @@
 ## 🎯 User Guide
 
 ### **Getting Started**
-1. **Choose Your Path** - Select based on desired energy effect
-2. **Follow the Rhythm** - Press and hold circle during inhale
-3. **Release on Exhale** - Let go to follow exhale timing
-4. **Track Progress** - Monitor harmony score improvement
-5. **Build Habit** - Practice regularly for best results
+1. **Choose Your Path** - Select based on desired energy effect (IDA/PINGALA/SUSHUMNA)
+2. **Tap to Begin** - Single tap on the breathing circle to start automatic cycles
+3. **Follow the Animations** - Watch lung-like breathing animations with color changes
+4. **Auto Timing** - App guides inhale/exhale automatically with visual and audio cues
+5. **Track Progress** - Monitor harmony score and complete your session rounds
+6. **Build Habit** - Practice regularly for best results
 
 ### **When to Use Each Mode**
 - **Morning (6-10 AM)**: Pingala for energy and alertness
@@ -171,14 +174,15 @@ Swarasync/
 ## 📊 Current Status
 
 ### **Completed Features** ✅
+- **Dynamic Color System** - Each nadi mode displays its unique color palette (IDA: blue #2E86AB, PINGALA: orange #FF6B35, SUSHUMNA: purple #8B5CF6)
+- **Ultra HD Nadi Backgrounds** - AI-generated meditation backgrounds specific to each breathing mode
+- **Tap-Based Breathing Interface** - Simple tap system with automatic lung-like breathing animations
+- **Auto Inhale/Exhale Instructions** - Clear timing guidance replacing manual hold mechanics
+- **Nadi switching buttons** (🌙 Idā, ☀️ Piṅgala, ⚡ Suṣumnā) for seamless mode transitions
 - **Mobile optimization** across all three pages with perfect responsiveness
-- **Indian flowers banner** replacing geometric patterns for authentic cultural connection
-- **Nadi switching buttons** (🌙 Idā, ☀️ Piṅgala, ⚡ Suṣumnā) for easy navigation within practice page
 - **Enhanced practice page** with detailed timing explanations and physiological effects
-- **Dual navigation system** - Direct links + JavaScript handlers for reliable routing
-- **Perfect color palette** with nadi-specific color coding (blue-teal, orange, purple)
 - **Professional PWA architecture** with service worker and offline support
-- **Interactive breathing interface** with press-and-hold mechanics and visual feedback
+- **Visual breathing feedback** with scaling animations, glow effects, and color transitions
 
 ### **Performance Metrics**
 - **Lighthouse Score**: 95+ (Performance, Accessibility, Best Practices, SEO)
