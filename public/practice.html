@@ -31,7 +31,7 @@
             --ida-secondary: #A2D2FF;
             --ida-text: #1B4C68;
             --ida-text-light: #4A90A4;
-            --ida-glow: rgba(46, 134, 171, 0.4);
+            --ida-glow: rgba(46, 134, 171, 0.15);
             
             /* Pingala (Energizing) Colors */
             --pingala-bg-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/1a64b8f6-125a-49fd-bd25-76d746d4dc62');
@@ -39,7 +39,7 @@
             --pingala-secondary: #FFAA80;
             --pingala-text: #8B2C0B;
             --pingala-text-light: #B85429;
-            --pingala-glow: rgba(255, 107, 53, 0.4);
+            --pingala-glow: rgba(255, 107, 53, 0.15);
             
             /* Sushumna (Balanced) Colors */
             --sushumna-bg-image: url('https://cdn1.genspark.ai/user-upload-image/gemini_generated/881fffaa-dee1-4f92-ba6e-976668c96d41');
@@ -47,7 +47,7 @@
             --sushumna-secondary: #C4B5FD;
             --sushumna-text: #4C1D95;
             --sushumna-text-light: #7C3AED;
-            --sushumna-glow: rgba(139, 92, 246, 0.4);
+            --sushumna-glow: rgba(139, 92, 246, 0.15);
             
             /* Design System */
             --border-radius: 16px;
@@ -1212,7 +1212,16 @@
             const patternDescription = document.querySelector('.effect-text');
             const effectTitle = document.querySelector('.effect-title');
             
+            // Find and update timing instructions
+            const timingInstructions = document.querySelectorAll('.timing-instruction');
+            const inhaleInstruction = timingInstructions[0]; // First one is inhale
+            const exhaleInstruction = timingInstructions[1]; // Second one is exhale
+            
             const pattern = nadiPatterns[path];
+            
+            // Update timing instructions to reflect tap-based system for ALL modes
+            if (inhaleInstruction) inhaleInstruction.textContent = 'Auto Inhale';
+            if (exhaleInstruction) exhaleInstruction.textContent = 'Auto Exhale';
             
             switch(path) {
                 case 'ida':
